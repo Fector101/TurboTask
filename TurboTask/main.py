@@ -5,7 +5,7 @@ import time
 import shutil
 import string as STR
 import  random
-from myModules import groupFiles
+from myModules import groupFiles,helper
 listOfFilesInDir=[]
 
 def delEmptyAll(path:str='.'):
@@ -16,23 +16,6 @@ def delEmptyAll(path:str='.'):
             except Exception as e:
                 # print('del error')
                 pass
-def parseStr(string: str):
-    nums=''.join([str(each) for each in range(0,10)])
-    str_ = ''
-    for each in string:
-        if each not in nums:
-            str_ += each
-    return str_.strip()
-
-def parseInt(string: str):
-    ii = ''
-    for each in string:
-        if each not in ['-', ' ', '(', ')']:
-            ii += each
-    ii = ii.strip(STR.ascii_letters + '-').strip()
-    if ii == '':
-        return 0
-    return int(ii)
 def rename1(currentName: str):
     """
     when a name is passed in it checks if it needs to be renamed to safe time,
@@ -70,7 +53,7 @@ def rename1(currentName: str):
                 # print(word_before_last_dot)
                 copy_word_and_number_btw = word_before_last_dot[word_before_last_dot.lower().rfind(' - copy ('):]
                 # print(copy_word_and_number_btw)
-                current_copy_no = parseInt(copy_word_and_number_btw)
+                current_copy_no = helper.parseInt(copy_word_and_number_btw)
                 newName = f"{keepingFormat[:each.rfind(' - copy (') ]} - Copy ({current_copy_no+1}){keepingFormat[each.rfind('.'):]}"
 
             if newName.lower() not in listOfFilesInDirLower:
@@ -111,7 +94,7 @@ def rename1(currentName: str):
                     newName = newName[:index] + f' (1)'
                 else:
                     ind_frmEach1 = keepingFormat.rfind(alreadycopiedMoreThanOnceWord)
-                    num_frmEach = parseInt(keepingFormat[ind_frmEach1:])  # .rsplit('.')[0])
+                    num_frmEach = helper.parseInt(keepingFormat[ind_frmEach1:])  # .rsplit('.')[0])
                     if newName[index:] =='':
                         suffix=''
                     else:
