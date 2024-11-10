@@ -17,7 +17,7 @@ setup(
             'durate = TurboTask.main:cal_files_duration',  # 'command_name = package.module:function'
             'group = TurboTask.main:sort',  # 'command_name = package.module:function'
             'groupShow = TurboTask.main:sortSeason',  # 'command_name = package.module:function'
-            'del = TurboTask.main:delEmptyAll',  # 'command_name = package.module:function'
+            'del = TurboTask.main:delEmptyAll',
             'create_dir = TurboTask.main:create_with_specified_dir_',
             'TurboTask = TurboTask.main:main_',
 
