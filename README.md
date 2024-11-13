@@ -28,7 +28,7 @@ To install **TurboTask**, you need to have Python 3.6+ installed. You can instal
 
 3. Install the package:
 
-    ```pip install .
+    ```pip install .```
 
 ## Usage
 
