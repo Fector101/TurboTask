@@ -9,7 +9,7 @@ setup(
     url='https://github.com/Fector101/TurboTask/',
     entry_points={
         "console_scripts": [
-            "TurboTask=Turbotask.main:main",
+            "TurboTask=turbotask.main:main",
         ],
     },
     author_email='fabianjoseph063@gmail.com',
