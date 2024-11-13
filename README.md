@@ -17,3 +17,70 @@ To install **TurboTask**, you need to have Python 3.6+ installed. You can instal
    ```bash
    git clone https://github.com/Fector101/TurboTask.git
    cd TurboTask
+   ```
+
+2. Create a virtual environment (optional, but recommended):
+
+    ```python3 -m venv myenv
+    source myenv/bin/activate  # For Linux/macOS
+    myenv\Scripts\activate     # For Windows
+    ```
+
+3. Install the package:
+
+    ```pip install .
+
+## Usage
+
+Once installed, you can run TurboTask directly from the command line by using the following syntax:
+    ```TurboTask <command> <file-path> [optional-output-path]```
+
+## Available Commands
+
+- **removeWhiteSpace**: This command removes all whitespaces and comments in a given CSS file.
+    ```TurboTask removeWhiteSpace <input-css-file> [optional-output-file]```
+
+- **input-css-file**: The path to the input CSS file.
+- **optional-output-file**: The optional path to save the output file. If not provided, the output will be saved as TurboTask/no whitespace.css   by default.
+<!-- 
+Example:
+
+    TurboTask removeWhiteSpace header.css
+
+    myStrip: Strips unwanted characters or patterns from the specified file. This feature will be available in future releases.
+
+Examples
+
+    To remove whitespace and comments from a CSS file:
+
+TurboTask removeWhiteSpace header.css
+
+This will process the header.css file and output the result to TurboTask/no whitespace.css.
+
+To specify a custom output path:
+
+    TurboTask removeWhiteSpace header.css output/no_whitespace.css
+
+Contributing
+
+We welcome contributions to TurboTask. If you'd like to contribute, please follow the steps below:
+
+    Fork the repository.
+    Create a new branch for your changes.
+    Commit your changes.
+    Push your changes to your fork.
+    Open a pull request with a description of your changes.
+
+License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+Author
+
+    Fabian - fabianjoseph063@gmail.com
+    GitHub: https://github.com/Fector101/TurboTask
+
+Acknowledgments
+
+    Thanks to Colorama for adding color support to terminal output.
+    Inspired by various open-source CLI tools.
+ -->
