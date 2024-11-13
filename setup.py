@@ -1,26 +1,24 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='TurboTask',
+    name="TurboTask",
+    version="0.1",
     packages=find_packages(),
-    version='1.0',
-    description='Makes Handling files easier.',
-    # description='Download shit and youtube playlists without having to enter any API keys!',
-    long_description="A Utilities to speed up tasks.",
-    # long_description_content_type='text/markdown',
+    install_requires=[],
     author='Fabian',
-    author_email='fabianjoseph063@gmail.com',
     url='https://github.com/Fector101/TurboTask/',
     entry_points={
-        'console_scripts': [
-            'create = TurboTask.main:create',  # 'command_name = package.module:function'
-            'durate = TurboTask.main:cal_files_duration',  # 'command_name = package.module:function'
-            'group = TurboTask.main:sort',  # 'command_name = package.module:function'
-            'groupShow = TurboTask.main:sortSeason',  # 'command_name = package.module:function'
-            'del = TurboTask.main:delEmptyAll',
-            'create_dir = TurboTask.main:create_with_specified_dir_',
-            'TurboTask = TurboTask.main:main_',
-
-        ]
-    }
+        "console_scripts": [
+            "TurboTask=Turbotask.main:main",
+        ],
+    },
+    author_email='fabianjoseph063@gmail.com',
+    description='A command-line tool that Makes Handling files quick and easy.',
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
 )
