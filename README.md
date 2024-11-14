@@ -4,7 +4,7 @@
 
 ## Features
 
-- **removeWhiteSpace**: Removes all whitespace and comments in CSS files to reduce the file size.
+- **noWhiteSpace**: Removes all whitespace and comments in CSS files to reduce the file size.
 - **myStrip**: Strips unwanted characters or patterns from files.
 - **File handling**: Supports handling files directly through the command line.
 
@@ -37,15 +37,15 @@ Once installed, you can run TurboTask directly from the command line by using th
 
 ## Available Commands
 
-- **removeWhiteSpace**: This command removes all whitespaces and comments in a given CSS file.
-    ```TurboTask removeWhiteSpace <input-css-file> [optional-output-file]```
+- **noWhiteSpace**: This command removes all whitespaces and comments in a given CSS file.
+    ```TurboTask noWhiteSpace <input-css-file> [optional-output-file]```
 
 - **input-css-file**: The path to the input CSS file.
 - **optional-output-file**: The optional path to save the output file. If not provided, the output will be saved as TurboTask/no whitespace.css   by default.
 <!-- 
 Example:
 
-    TurboTask removeWhiteSpace header.css
+    TurboTask noWhiteSpace header.css
 
     myStrip: Strips unwanted characters or patterns from the specified file. This feature will be available in future releases.
 
@@ -53,13 +53,13 @@ Examples
 
     To remove whitespace and comments from a CSS file:
 
-TurboTask removeWhiteSpace header.css
+TurboTask noWhiteSpace header.css
 
 This will process the header.css file and output the result to TurboTask/no whitespace.css.
 
 To specify a custom output path:
 
-    TurboTask removeWhiteSpace header.css output/no_whitespace.css
+    TurboTask noWhiteSpace header.css output/no_whitespace.css
 
 Contributing
 
