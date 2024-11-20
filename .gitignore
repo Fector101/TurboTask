@@ -1,7 +1,10 @@
 build
 dist
+lab
 .venv
+.pypirc
 .idea
 myenv
+venv
 __pycache__
 TurboTask.egg-info

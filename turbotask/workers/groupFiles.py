@@ -9,6 +9,7 @@ import shutil
 USER_HOME_PATH=os.getenv('HOMEPATH')  # Can also be editable to downloads path or something else
 if(USER_HOME_PATH == None):
   USER_HOME_PATH=os.getenv('HOME')
+  
 paths_to_ignore=[os.path.join(USER_HOME_PATH,'AppData')]
 folders_to_ignore=['node_modules']
 formats_to_move=['.mp3','.pdf']

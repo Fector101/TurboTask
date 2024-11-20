@@ -92,7 +92,7 @@ def myStrip(code:str):
         i+=1
     return new_str
 
-def removeWhiteSpaces(code,return_=False,comments=False):
+def noWhiteSpaces(code,return_=False,comments=False):
     no_comments=code
     if not comments:
         no_comments=removeComments(CODE)    # Doesn't make sense to have comments when no whitespaces it won't be visible
@@ -334,6 +334,6 @@ def formatNicely(code, strip=True):
         i+=1
     # print(amount_of_open_braces,amount_of_closed_braces)
     writeInFile(str_)#[1:-1]
-# formatNicely(removeWhiteSpaces(CODE,return_=True))
+# formatNicely(noWhiteSpaces(CODE,return_=True))
 # formatNicely(objectToStyle(stylesToObject(CODE)),strip=0)
 #FIX

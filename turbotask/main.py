@@ -6,7 +6,7 @@ from .helper import redText,greenText,readFile,writeFile
 from .workers.basic import removeComments, myStrip
 
 
-def remove_whitespace(input_css_file_path, output_file_path="TurboTask/output/no_whitespace.css",return_=False,comments=False):
+def remove_whitespace(input_css_file_path, output_file_path="TurboTask/no_whitespace.css",return_=False,comments=False):
     initial_css=readFile(input_css_file_path)
     if initial_css == 'error--33*/901438-*--2324':
         return
