@@ -8,3 +8,4 @@ myenv
 venv
 __pycache__
 TurboTask.egg-info
+.vscode
