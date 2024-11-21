@@ -1,12 +1,12 @@
 # Add code if User passes a folder path and not a file will check for css files and folders in folder 
 # and put new version with noWhiteSpace in TurboTask-output folder with same naming convention for folders and files
-# Also maybe change command from noWhiteSpace to noWhiteSpace
 import argparse
 from .helper import redText,greenText,readFile,writeFile
 from .workers.basic import removeComments, myStrip
+import os
 
 
-def remove_whitespace(input_css_file_path, output_file_path="TurboTask/no_whitespace.css",return_=False,comments=False):
+def remove_whitespace(input_css_file_path, output_file_path="TurboTask-output/no_whitespace.css",return_=False,comments=False):
     initial_css=readFile(input_css_file_path)
     if initial_css == 'error--33*/901438-*--2324':
         return
@@ -26,15 +26,36 @@ def remove_whitespace(input_css_file_path, output_file_path="TurboTask/no_whites
         error_msg=f"Failed to write File Output in'{redText(output_file_path)}'"
         )
     
+def process_directory(input_directory, output_directory="TurboTask-output"):
+    """Recursively process all .css files in the provided directory."""
+    if not os.path.exists(output_directory):
+        os.makedirs(output_directory)  # Create output directory if it doesn't exist
+    
+    for root, dirs, files in os.walk(input_directory):
+        for file in files:
+            if file.endswith(".css"):  # Check if the file is a CSS file
+                input_file_path = os.path.join(root, file)
+                relative_path = os.path.relpath(input_file_path, input_directory)  # Get relative path of the file
+                
+                # Create corresponding output directory if it doesn't exist
+                output_file_path = os.path.join(output_directory, relative_path)
+                output_file_dir = os.path.dirname(output_file_path)
+                if not os.path.exists(output_file_dir):
+                    os.makedirs(output_file_dir)
 
+                # Remove whitespaces and write to the output file
+                remove_whitespace(input_file_path, output_file_path)
 
 def main():
+    """Main function to handle command-line arguments and call appropriate functions."""
     parser = argparse.ArgumentParser(prog="TurboTask")
     subparsers = parser.add_subparsers(dest="command")
     
     remove_whitespace_parser = subparsers.add_parser("noWhiteSpace", help="Removes all whitespace and comments in CSS File")
-    remove_whitespace_parser.add_argument("input_css_file_path", help="The Input CSS File Path argument")
-    remove_whitespace_parser.add_argument("output_file_path", nargs="?", default="TurboTask/output/no_whitespace.css", help="The optional Output File Path argument. Default is 'TurboTask/output/no_whitespace.css'")
+    remove_whitespace_parser.add_argument("input_css_path", help="The Input CSS File or Folder Path argument")
+    
+    # Optional argument for the output folder (default is 'TurboTask-output')
+    remove_whitespace_parser.add_argument("output_path", nargs="?", default="TurboTask/output/no_whitespace.css", help="The optional Output File Path argument. Default is 'TurboTask-output")
     
     args = parser.parse_args()
     if args.command == "noWhiteSpace":

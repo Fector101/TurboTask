@@ -1,0 +1,25 @@
+{
+  "name": "turbotask",
+  "version": "0.2.0",
+  "description": "A command-line tool that Makes Handling files quick and easy.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fector101/TurboTask.git"
+  },
+  "keywords": [
+    "TurboTask"
+  ],
+  "author": "Fabian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fector101/TurboTask/issues"
+  },
+  "homepage": "https://github.com/Fector101/TurboTask#readme",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  }
+}
