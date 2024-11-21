@@ -74,6 +74,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+/**
+ * Main application entry point
+ * Handles user input and initiates file processing
+ */
 function main() {
   rl.question('Enter the input CSS file or directory path: ', (inputPath) => {
     rl.question('Enter the output Folder (default is "TurboTask-output"): ', (outputPath) => {

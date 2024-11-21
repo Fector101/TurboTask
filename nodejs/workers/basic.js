@@ -1,3 +1,15 @@
+/**
+ * TurboTask CSS Processing Module
+ * Handles CSS minification operations
+ * 
+ * @module workers/basic
+ */
+
+/**
+ * Remove whitespace from CSS while preserving functionality
+ * @param {string} code - CSS content to process
+ * @returns {string} Minified CSS content
+ */
 function myStrip(code) {
     let newStr = '';
     let removeSpace = false;
@@ -7,6 +19,7 @@ function myStrip(code) {
 
     code = code.replace(/\n/g, '');  // Removing new lines
 
+    // Process each character
     for (let char of code) {
         if (checkpoints.includes(char)) {
             removeSpace = true;
@@ -15,6 +28,7 @@ function myStrip(code) {
             if (char === '{') {
                 newStr += char;
             } else if (char === '}' && newStr[newStr.length - 1] === '{') {
+                // Handle empty rule sets
                 const indexOfLastClosedBraces = newStr.lastIndexOf('}');
                 if (indexOfLastClosedBraces !== -1) {
                     newStr = newStr.substring(0, indexOfLastClosedBraces + 1);
@@ -26,15 +40,17 @@ function myStrip(code) {
             }
         } else if ((char === '/' && i + 1 !== lengthOfStr && code[i + 1] === '*') || 
                    (char === '*' && i - 1 !== -1 && code[i - 1] === '/')) {
+            // Handle comment start
             newStr = newStr.trim();  // Stripping trailing whitespace when not adding semicolon
             newStr += char;
             removeSpace = true;
         } else if ((char === '*' && i + 1 !== lengthOfStr && code[i + 1] === '/') || 
                    (char === '/' && i - 1 !== -1 && code[i - 1] === '*')) {
+            // Handle comment end
             newStr += char;
             removeSpace = true;
         } else if (char === ' ' && removeSpace) {
-            // Do nothing to remove space
+            // Skip space when flagged for removal
         } else {
             removeSpace = false;
             newStr += char;
@@ -44,6 +60,11 @@ function myStrip(code) {
     return newStr;
 }
 
+/**
+ * Remove CSS comments while preserving code structure
+ * @param {string} code - CSS content to process
+ * @returns {string} CSS content without comments
+ */
 function removeComments(code) {
     if (!code.includes('/*')) {
         return code;
@@ -58,6 +79,7 @@ function removeComments(code) {
         return code;  // Return the code as it is if the comments are mismatched
     }
 
+    // Process each character
     for (let char of code) {
         if (char === '/' && i + 1 !== code.length && code[i + 1] === '*') {
             foundCommentEnd = false;
@@ -70,7 +92,7 @@ function removeComments(code) {
         i++;
     }
 
-    // Return empty string for empty selectors or unwanted fragments
+    // Handle empty selectors and fragments
     const listForEmptyReturn = ['/', '*', '{'];
     if (listForEmptyReturn.some(item => item.replace(' ', '') === newStr)) {
         return '';
@@ -79,9 +101,11 @@ function removeComments(code) {
     }
 }
 
-module.exports.removeComments =  function (css) {
-    return css.replace(/\/\*.*?\*\//gs, ''); // Remove all comments
-}
+// // Export a simpler version for the module
+// module.exports.removeComments = function (css) {
+//     return css.replace(/\/\*.*?\*\//gs, '');
+// }
+
 
 // const myStrip = function(css) {
 //     return css

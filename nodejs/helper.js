@@ -1,17 +1,38 @@
+/**
+ * TurboTask Helper Utilities
+ * Core utility functions for file operations and console formatting
+ * 
+ * @module helper
+ */
+
 const fs = require('fs');
 const path = require('path');
 
-// Function to color text in green
+
+/**
+ * Format text in green color for console output
+ * @param {string} text - Text to be colored
+ * @returns {string} ANSI color formatted string
+ */
 function greenText(text) {
   return `\x1b[32m${text}\x1b[0m`;
 }
 
-// Function to color text in red
+
+/**
+ * Format text in red color for console output
+ * @param {string} text - Text to be colored
+ * @returns {string} ANSI color formatted string
+ */
 function redText(text) {
   return `\x1b[31m${text}\x1b[0m`;
 }
 
-// Function to create a directory if it doesn't exist
+
+/**
+ * Create a directory and any necessary parent directories
+ * @param {string} directoryPath - Path of the directory to create
+ */
 function createDirectory(directoryPath) {
   try {
     if (!fs.existsSync(directoryPath)) {
@@ -22,7 +43,11 @@ function createDirectory(directoryPath) {
   }
 }
 
-// Function to read a file asynchronously
+/**
+ * Read file contents safely with error handling
+ * @param {string} inputCssFilePath - Path to the file to read
+ * @returns {string|null} File contents or null if operation fails
+ */
 function readFile(inputCssFilePath) {
   try {
     return fs.readFileSync(inputCssFilePath, 'utf8');
@@ -36,7 +61,14 @@ function readFile(inputCssFilePath) {
   }
 }
 
-// Function to write content to a file
+
+/**
+ * Write content to a file with directory creation and error handling
+ * @param {string} content - Content to write to file
+ * @param {string} filePath - Path where file should be written
+ * @param {string} [goodMsg='<Dev> - Default Success Msg'] - Success message
+ * @param {string} [errorMsg='<Dev> - Default Error Msg'] - Error message
+ */
 function writeFile(content, filePath, goodMsg = "<Dev> - Default Success Msg", errorMsg = "<Dev> - Default Error Msg") {
   try {
     const folderPath = path.dirname(filePath);
