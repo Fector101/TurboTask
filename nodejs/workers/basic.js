@@ -17,7 +17,7 @@ function myStrip(code) {
     let lengthOfStr = code.length;
     const checkpoints = ['{', ':', ';', '}'];
 
-    code = code.replace(/\n/g, '');  // Removing new lines
+    code = code.replace(/\r?\n|\r/g, '');  // Removing new lines
 
     // Process each character
     for (let char of code) {

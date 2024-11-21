@@ -51,22 +51,24 @@ This will process the header.css file and output the result to TurboTask/no whit
 To specify a custom output path:
     TurboTask noWhiteSpace header.css output/no_whitespace.css
 
-Contributing
+## 🤝 Contributing
 
 We welcome contributions to TurboTask. If you'd like to contribute, please follow the steps below:
-    Fork the repository.
-    Create a new branch for your changes.
-    Commit your changes.
-    Push your changes to your fork.
-    Open a pull request with a description of your changes.
 
-License
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Commit your changes.
+4. Push your changes to your fork.
+5. Open a pull request with a description of your changes.
+
+## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-Author
-    Fabian - <fabianjoseph063@gmail.com>
-    GitHub: <https://github.com/Fector101/TurboTask>
+
+## Author
+
+- Fabian - <fector101@yahoo.com>
+- GitHub: <https://github.com/Fector101/TurboTask>
 
 Acknowledgments
-    Thanks to Colorama for adding color support to terminal output.
     Inspired by various open-source CLI tools.

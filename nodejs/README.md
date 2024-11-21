@@ -53,19 +53,40 @@ npm install
 Currently, the tool supports CSS processing:
 
 ```bash
-node index.js
+turbotask noWhiteSpace <input_css_file_path> [output_path]
 ```
 
-The CLI will prompt you for:
+The noWhiteSpace args:
 
-1. Input path (file or directory)
-2. Output directory (defaults to "TurboTask-output")
+1. <input_css_file_path> can be a CSS file or Folder with CSS Files.
+2. [output_path] Output directory (defaults to "TurboTask-output") can be changed to a File or Folder Path
 
-### Example
+### Examples For CLI Usage
 
 ```bash
-Enter the input CSS file or directory path: ./styles
-Enter the output Folder (default is "TurboTask-output"): ./minified
+turbotask noWhiteSpace rough.css clean.css
+```
+
+OR
+
+```bash
+turbotask noWhiteSpace ./styles ./minified
+```
+
+### Examples For In-File Usage
+
+```javascript
+const path = require("path") // This is packaged with NodeJS
+const {noWhiteSpace} = require("turbotask")
+// For Single File
+noWhiteSpace('main.css','main-new.css')
+
+// For Folders File
+noWhiteSpace('./styles','./minified')
+noWhiteSpace('./','./minified')
+
+// If you dont' want to Over-Write Original Files add a output folder
+noWhiteSpace('','')
 ```
 
 ## 🛠️ Core Utilities
@@ -174,3 +195,8 @@ Common error messages and their meanings:
 ## 📄 License
 
 MIT © Fabian Joseph
+
+## Author
+
+- Fabian - <fector101@yahoo.com>
+- GitHub: <https://github.com/Fector101/TurboTask>
