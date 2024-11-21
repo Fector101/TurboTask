@@ -1,0 +1,56 @@
+🧵 1/6 Just launched TurboTask - a Node.js toolkit that makes file processing a breeze! 
+
+Starting with CSS minification, but building towards something bigger. Here's what it can do 👇
+
+#nodejs #javascript #webdev #opensource
+
+---
+2/6 Current Features:
+• Minify CSS files instantly
+• Process entire directories at once
+• Maintain folder structures
+• Smart error handling
+• Clean, documented code
+
+And this is just the beginning... 🚀
+
+---
+3/6 Built with clean architecture:
+• Modular design for easy expansion
+• Comprehensive error handling
+• Well-documented codebase
+• Available on npm!
+
+📦 Install: npm install turbotask
+
+---
+4/6 Coming soon:
+• Smart file grouping
+• Media file processing
+• Duration analysis
+• Metadata extraction
+• Batch processing
+
+Building in public and taking feature requests! 🛠️
+
+---
+5/6 Why I built this:
+• Simplify file processing workflows
+• Make development faster
+• Create a foundation for powerful file management
+• Help other developers
+
+Check out the repo: [Your GitHub Link]
+
+---
+6/6 🎯 Open for:
+• Freelance Node.js projects
+• Backend development work
+• Code review & optimization
+• Technical documentation
+
+DM open for opportunities!
+
+Let's build something amazing together 🤝
+
+#typescript #coding #developer

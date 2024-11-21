@@ -9,9 +9,8 @@ const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
 
-const {greenText,redText,createDirectory,readFile,writeFile} = require("./helper")
+const {greenText, redText, createDirectory, readFile, writeFile} = require("./helper")
 const {removeComments, myStrip} = require('./workers/basic')
-
 
 /**
  * Process a single CSS file
@@ -57,10 +56,10 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
     const fullPath = path.join(inputDirectoryPath, entry.name);
 
     if (entry.isDirectory()) {
-      // If the entry is a directory, recurse into it
+      // Recursively process subdirectories
       processDirectory(fullPath, path.join(outputDirectoryPath, entry.name));
     } else if (entry.isFile() && entry.name.endsWith('.css')) {
-      // If the entry is a CSS file, process it
+      // Process CSS files
       const relativePath = path.relative(inputDirectoryPath, fullPath);
       const outputFilePath = path.join(outputDirectoryPath, relativePath);
       processFile(fullPath, outputFilePath);
@@ -74,6 +73,10 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
+/**
+ * Main application entry point
+ * Handles user input and initiates file processing
+ */
 function main() {
   rl.question('Enter the input CSS file or directory path: ', (inputPath) => {
     rl.question('Enter the output Folder (default is "TurboTask-output"): ', (outputPath) => {
