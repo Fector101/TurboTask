@@ -9,7 +9,7 @@
 const fs = require('fs');
 const path = require('path');
 const {Command} = require("commander")
-// const readline = require('readline');
+const { description, version } = require('./package.json');
 
 const {greenText,redText,createDirectory,readFile,writeFile} = require("./helper")
 const {removeComments, myStrip} = require('./workers/basic')
@@ -17,18 +17,18 @@ const {removeComments, myStrip} = require('./workers/basic')
 
 /**
  * Process a single CSS file
- * @param {string} inputFilePath - Path to the input CSS file
+ * @param {string} inputFilePath - Path to the input CSS file || CSS Folder Path
  * @param {string} outputFilePath - Path where the processed file will be saved
- * @param {boolean} [removeWhitespace=true] - Whether to remove whitespace
  * @param {boolean} [removeCommentsFlag=true] - Whether to remove comments
  */
-function noWhiteSpace(inputFilePath, outputFilePath, removeWhitespace = true, removeCommentsFlag = true) {
-  // Error Checking
+function noWhiteSpace(inputFilePath, outputFilePath, removeCommentsFlag = true) {
+  // Error Checking for when function is imported directly
   inputFilePath=[" ",""].includes(inputFilePath) ? "./":inputFilePath
   if(!fs.existsSync(inputFilePath)){
     console.error(`${redText(inputPath)} does not exist.`)
     return
   }
+  // Point to Another Function If Folder Path Passed In.
   if (fs.lstatSync(inputFilePath).isDirectory()){
     processDirectory(inputFilePath, outputFilePath)
     return
@@ -41,9 +41,7 @@ function noWhiteSpace(inputFilePath, outputFilePath, removeWhitespace = true, re
     cssContent = removeComments(cssContent);
   }
 
-  if (removeWhitespace) {
-    cssContent = myStrip(cssContent);
-  }
+  cssContent = myStrip(cssContent);
 
   writeFile(
     cssContent,
@@ -72,7 +70,7 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
     }
   }
 
-  const folders_to_ignore=[ 'node_modules' ]
+  const folders_to_ignore=[ 'node_modules', '.git']
   // const paths_to_ignore=[ 'node_modules' ]
 
   // if (!fs.existsSync(outputDirectoryPath)) {
@@ -103,8 +101,12 @@ if(require.main === module){
   const program = new Command();
   program
       .version('0.2.14')
-      .description('TurboTask: A versatile Node.js toolkit for file processing operations. Currently supports CSS minification with plans for expanded functionality')
-      .command('noWhiteSpace <input_css_file_path> [output_path]')
+      .description(`${description}\nTurboTask: A versatile Node.js toolkit for file processing operations. Currently supports CSS minification with plans for expanded functionality`)
+      .version(version, '-V, --version', 'output the version number')
+      .helpOption('-h, --help', 'display help for command');
+
+      //commands
+      program.command('noWhiteSpace <input_css_path> [output_path]')
       .description('Removes whitespace from CSS file or All CSS Files in Given Dir')
       .action((inputCssFilePath, outputFilePath = 'TurboTask-output') => {
 
@@ -117,6 +119,7 @@ if(require.main === module){
           console.error(`${redText(inputCssFilePath )} does not exist.`);
         }
       });
+
       // Parse the command-line arguments
       program.parse(process.argv);
 }

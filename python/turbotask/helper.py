@@ -1,5 +1,6 @@
 import string as STR
 import os
+
 from colorama import Fore, Style, init as coloramaInit
 coloramaInit()
 
@@ -20,12 +21,13 @@ def readFile(input_css_file_path):
     try:
         with open(input_css_file_path, mode='r') as data:
             return data.read()
+        
     except Exception as e:
         if type(e).__name__ == "FileNotFoundError":
             print(f"<Error - {redText(input_css_file_path)} Doesn't Exist>")
         else:
             print(f"Failed to Read File '{redText(input_css_file_path)}': {e}")
-        return 'error--33*/901438-*--2324'    
+        return None
 
 def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_msg="<Dev> - Default Error Msg"):
     try:
@@ -37,21 +39,3 @@ def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_m
         print(good_msg)
     except Exception as e:
         print(error_msg)
-        
-def parseStr(string: str):
-    nums=''.join([str(each) for each in range(0,10)])
-    str_ = ''
-    for each in string:
-        if each not in nums:
-            str_ += each
-    return str_.strip()
-
-def parseInt(string: str):
-    ii = ''
-    for each in string:
-        if each not in ['-', ' ', '(', ')']:
-            ii += each
-    ii = ii.strip(STR.ascii_letters + '-').strip()
-    if ii == '':
-        return 0
-    return int(ii)

@@ -1,74 +1,124 @@
-# TurboTask
+# TurboTask File Processing Toolkit
 
-**TurboTask** is a command-line tool that makes handling files quick and easy. It offers various functionalities such as removing whitespace, commenting, and other utilities for efficient file processing.
+[![PyPI version](https://badge.fury.io/py/TurboTask.svg)](https://badge.fury.io/py/TurboTask)
+[![Python 3.6+](https://img.shields.io/badge/python-3.6+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange.svg)](https://buymeacoffee.com/fector101)
 
-## Features
+> A powerful command-line toolkit for efficient file processing, specializing in CSS optimization and more.
 
-- **noWhiteSpace**: Removes all whitespace and comments in CSS files to reduce the file size.
-- **myStrip**: Strips unwanted characters or patterns from files.
-- **File handling**: Supports handling files directly through the command line.
+## 🚀 Features
 
-## Installation
+### Current Capabilities
+- **CSS Processing**
+  - Minification by removing comments and whitespace
+  - Single file or bulk directory processing
+  - Directory structure preservation
+  - Built-in validation checks
+  - Custom output path configuration
 
-To install **TurboTask**, you need to have Python 3.6+ installed. You can install **TurboTask** via `pip` by following the steps below:
+### Roadmap
+- [ ] Automatic file type grouping
+- [ ] Media file duration analysis
+- [ ] Extended file processing capabilities
+- [ ] Batch processing optimization
 
-1. Clone the repository:
+## 📦 Installation
 
-   ```bash
-   git clone https://github.com/Fector101/TurboTask.git
-   cd TurboTask
-   ```
+**Prerequisites**: Python 3.6 or higher
 
-2. Create a virtual environment (optional, but recommended):
+### Via pip (Recommended)
+```bash
+pip install TurboTask
+```
 
-    ```python3 -m venv myenv
-    source myenv/bin/activate  # For Linux/macOS
-    myenv\Scripts\activate     # For Windows
-    ```
+### From Source
+```bash
+# Clone the repository
+git clone https://github.com/Fector101/TurboTask.git
+cd TurboTask
 
-3. Install the package:
+# Optional: Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # Unix/macOS
+# or
+venv\Scripts\activate     # Windows
 
-    ```pip install .```
+# Install from source
+pip install .
+```
 
-## Usage
+## 🔨 Usage Guide
 
-Once installed, you can run TurboTask directly from the command line by using the following syntax:
-    ```TurboTask <command> <file-path> [optional-output-path]```
+### CSS Processing Commands
 
-## Available Commands
+#### Remove Whitespace and Comments
+```bash
+TurboTask noWhiteSpace <input-css-file> [output-file]
+```
 
-- **noWhiteSpace**: This command removes all whitespaces and comments in a given CSS file.
-    ```TurboTask noWhiteSpace <input-css-file> [optional-output-file]```
+**Arguments:**
+- `input-css-file`: Path to source CSS file
+- `output-file`: (Optional) Destination path for processed file
+  - Defaults to `./TurboTask-output/[original-filename]`
 
-- **input-css-file**: The path to the input CSS file.
-- **optional-output-file**: The optional path to save the output file. If not provided, the output will be saved as TurboTask/no whitespace.css   by default.
+**Examples:**
+```bash
+# Basic usage
+TurboTask noWhiteSpace styles.css
 
-Example:
-    `TurboTask noWhiteSpace header.css`
-    <!-- myStrip: Strips unwanted characters or patterns from the specified file. This feature will be available in future releases. -->
-This will process the header.css file and output the result to TurboTask/no whitespace.css.
-
-To specify a custom output path:
-    TurboTask noWhiteSpace header.css output/no_whitespace.css
+# Custom output path
+TurboTask noWhiteSpace styles.css dist/minified.css
+```
 
 ## 🤝 Contributing
 
-We welcome contributions to TurboTask. If you'd like to contribute, please follow the steps below:
+We appreciate contributions! Here's how you can help:
 
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Commit your changes.
-4. Push your changes to your fork.
-5. Open a pull request with a description of your changes.
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+Please ensure your PR:
+- Includes a clear description of the changes
+- Updates relevant documentation
+- Adds tests if applicable
+
+## ☕ Support the Project
+
+If you find TurboTask helpful, consider buying me a coffee! Your support helps maintain and improve the project.
+
+<a href="https://www.buymeacoffee.com/fector101" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60">
+</a>
+
+Your support helps me to:
+- Maintain and improve TurboTask
+- Add new features
+- Keep the project active
+<!-- - Cover hosting costs -->
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
+## 👤 Author
 
-- Fabian - <fector101@yahoo.com>
-- GitHub: <https://github.com/Fector101/TurboTask>
+**Fabian**
+- Email: fector101@yahoo.com
+- GitHub: [@Fector101](https://github.com/Fector101/TurboTask)
 
-Acknowledgments
-    Inspired by various open-source CLI tools.
+## 🙏 Acknowledgments
+
+- Inspired by the open-source CLI tool community
+- Thanks to all contributors who help improve TurboTask
+
+## 📚 Documentation
+
+For detailed documentation and advanced usage examples, visit our [GitHub Wiki](https://github.com/Fector101/TurboTask/wiki).
+
+---
+
+Found this project helpful? Give it a ⭐️ on GitHub!

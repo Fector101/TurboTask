@@ -1,74 +1,104 @@
-# TurboTask
+# TurboTask File Processing Toolkit
 
-**TurboTask** is a command-line tool that makes handling files quick and easy. It offers various functionalities such as removing whitespace, commenting, and other utilities for efficient file processing.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python Package](https://img.shields.io/badge/Python-Package-blue)](./python)
+[![Node.js Package](https://img.shields.io/badge/Node.js-Package-green)](./nodejs)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange.svg)](https://buymeacoffee.com/fector101)
 
-## Features
+> A powerful file processing toolkit available for both Python and Node.js, specializing in CSS optimization and more.
 
-- **noWhiteSpace**: Removes all whitespace and comments in CSS files to reduce the file size.
-- **myStrip**: Strips unwanted characters or patterns from files.
-- **File handling**: Supports handling files directly through the command line.
+## 📦 Available Packages
 
-## Installation
+### [Python Implementation](./python)
+```bash
+pip install TurboTask
+```
+- Python 3.6+ support
+- Available via PyPI
+- [View Python Documentation](./python/README.md)
 
-To install **TurboTask**, you need to have Python 3.6+ installed. You can install **TurboTask** via `pip` by following the steps below:
+### [Node.js Implementation](./nodejs)
+```bash
+npm install turbotask
+```
+- Node.js 14+ support
+- Available via npm
+- [View Node.js Documentation](./nodejs/README.md)
 
-1. Clone the repository:
+## 🚀 Key Features
 
-   ```bash
-   git clone https://github.com/Fector101/TurboTask.git
-   cd TurboTask
-   ```
+Both implementations offer:
+- **CSS Processing**
+  - Minification
+  - Comment removal
+  - Whitespace optimization
+  - Directory structure preservation
+- **Batch Processing**
+  - Multiple file handling
+  - Recursive directory processing
+  - Custom output paths
 
-2. Create a virtual environment (optional, but recommended):
+## 🔄 Version Compatibility
 
-    ```python3 -m venv myenv
-    source myenv/bin/activate  # For Linux/macOS
-    myenv\Scripts\activate     # For Windows
-    ```
+| Feature                | Python Package | Node.js Package |
+|-----------------------|----------------|-----------------|
+| CSS Minification      | ✅             | ✅              |
+| Directory Processing  | ✅             | ✅              |
+| Custom Output Paths   | ✅             | ✅              |
+| File Validation       | ✅             | ✅              |
 
-3. Install the package:
+## 🎯 Quick Start
 
-    ```pip install .```
+Choose your preferred implementation:
 
-## Usage
+### Python
+```bash
+# Install
+pip install TurboTask
 
-Once installed, you can run TurboTask directly from the command line by using the following syntax:
-    ```TurboTask <command> <file-path> [optional-output-path]```
+# Use
+TurboTask noWhiteSpace style.css
+```
 
-## Available Commands
+### Node.js
+```bash
+# Install
+npm install turbotask
 
-- **noWhiteSpace**: This command removes all whitespaces and comments in a given CSS file.
-    ```TurboTask noWhiteSpace <input-css-file> [optional-output-file]```
+# Use
+turbotask noWhiteSpace style.css
+```
 
-- **input-css-file**: The path to the input CSS file.
-- **optional-output-file**: The optional path to save the output file. If not provided, the output will be saved as TurboTask/no whitespace.css   by default.
+## 🛣️ Roadmap
 
-Example:
-    `TurboTask noWhiteSpace header.css`
-    <!-- myStrip: Strips unwanted characters or patterns from the specified file. This feature will be available in future releases. -->
-This will process the header.css file and output the result to TurboTask/no whitespace.css.
+- [ ] File type grouping
+- [ ] Media file analysis
+- [ ] Cross-platform GUI
+- [ ] Web interface
+- [ ] API service
 
-To specify a custom output path:
-    TurboTask noWhiteSpace header.css output/no_whitespace.css
+## ☕ Support the Project
 
-## 🤝 Contributing
+If you find TurboTask helpful, consider buying me a coffee!
 
-We welcome contributions to TurboTask. If you'd like to contribute, please follow the steps below:
+<a href="https://www.buymeacoffee.com/fector101" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60">
+</a>
 
-1. Fork the repository.
-2. Create a new branch for your changes.
-3. Commit your changes.
-4. Push your changes to your fork.
-5. Open a pull request with a description of your changes.
+## 👤 Author
+
+**Fabian**
+- Email: fector101@yahoo.com
+- GitHub: [@Fector101](https://github.com/Fector101/TurboTask)
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Author
+---
 
-- Fabian - <fector101@yahoo.com>
-- GitHub: <https://github.com/Fector101/TurboTask>
+📚 For detailed documentation, visit the respective package directories:
+- [Python Documentation](./python/README.md)
+- [Node.js Documentation](./nodejs/README.md)
 
-Acknowledgments
-    Inspired by various open-source CLI tools.
+Found this project helpful? Give it a ⭐️ on GitHub!

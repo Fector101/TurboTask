@@ -1,12 +1,12 @@
 {
   "name": "turbotask",
-  "version": "0.2.14",
+  "version": "0.2.15",
   "description": "A command-line tool that Makes Handling files quick and easy.",
   "main": "index.js",
   "author": "Fabian",
   "license": "ISC",
   "bin": {
-    "turbotask": "./index.js"
+    "turbotask": "index.js"
   },
   "repository": {
     "type": "git",

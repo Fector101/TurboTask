@@ -53,12 +53,12 @@ npm install
 Currently, the tool supports CSS processing:
 
 ```bash
-turbotask noWhiteSpace <input_css_file_path> [output_path]
+turbotask noWhiteSpace <input_css_path> [optional_output_path]
 ```
 
-The noWhiteSpace args:
+The noWhiteSpace arguments:
 
-1. <input_css_file_path> can be a CSS file or Folder with CSS Files.
+1. <input_css_path> can be a CSS file or Folder with CSS Files.
 2. [output_path] Output directory (defaults to "TurboTask-output") can be changed to a File or Folder Path
 
 ### Examples For CLI Usage
@@ -191,6 +191,20 @@ Common error messages and their meanings:
 - New features will be added progressively
 - Maintains backward compatibility with existing functionality
 - Focuses on safe file operations with comprehensive error handling
+
+## ☕ Support the Project
+
+If you find TurboTask helpful, consider buying me a coffee! Your support helps maintain and improve the project.
+
+<a href="https://www.buymeacoffee.com/fector101" target="_blank">
+  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60">
+</a>
+
+Your support helps me to:
+
+- Maintain and improve TurboTask
+- Add new features
+- Keep the project active
 
 ## 📄 License
 
