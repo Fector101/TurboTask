@@ -6,7 +6,7 @@
  * 
  * @module index
  */
-const fs = require('fs');
+const fs = require('fs')
 const path = require('path');
 const {Command} = require("commander")
 const { description, version } = require('./package.json');
@@ -95,6 +95,56 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
     }
   });
 }
+
+
+/**
+ * Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir
+ * @param {string} inputDir - Path to the input directory
+ * @param {string} [outputDir='TurboTask-output'] - Path where processed files will be saved
+ */
+function groupFormat(format='',dir=''){
+    let folders = []
+    while (folders.length){
+        const current_folder=folders[0]
+        const list_of_filesNdFolders=fs.readdirSync(current_folder)
+        
+        for (each in list_of_filesNdFolders){
+            const currentPath = path.join(current_folder ,each)
+            const stats_= fs.statSync(filePath)
+            if (stats_.isDirectory){
+                    let has_files_in_it=false
+                    try{
+                        has_files_in_it = fs.readdirSync(currentPath).length
+                    }
+                    catch{ // Incase i can't read dir
+                        has_files_in_it=0
+                    }
+                    const group_in_name= currentPath.startsWith('group')
+                    if (has_files_in_it && !group_in_name){
+                        folders.append(currentPath)
+                    }
+            }
+            else{
+                const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
+                
+                if (folder_name && !fs.existsSync(folder_name)){
+                    fs.mkdir(folder_name)
+                }
+
+                const list_Of_files_in_folder=os.listdir(folder_name)
+                try{
+                    moveFileToDirectory('path/to/source/file.txt', 'path/to/destination/directory');
+                }
+                catch{}
+            }
+        }
+        
+        folders=folders.shift()
+        deleteEmptyFolders(currentPath)
+
+    }
+}
+
 
 if(require.main === module){
 
