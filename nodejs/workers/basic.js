@@ -184,4 +184,4 @@ function deleteEmptyFolders(dirPath) {
 //     // Then, preserve spaces between selectors, but remove spaces inside the selector or rule
 //     .replace(/(?<=\S)\s+(?=\S)/g, ''); 
 // }
-module.exports={removeComments, myStrip}
+module.exports={removeComments, myStrip, moveFileToDirectory, deleteEmptyFolders}
