@@ -199,7 +199,6 @@ The toolkit is designed for expansion. Planned features include:
 
 3. **General Utilities**
    - Advanced file manipulation
-   - API service
 
 ## 🤝 Contributing
 
@@ -239,6 +238,7 @@ If you find TurboTask helpful, consider buying me a coffee! Your support helps m
 Your support helps me to:
 
 - Maintain and improve TurboTask
+- Web interface / API services
 - Add new features
 - Keep the project active
 
