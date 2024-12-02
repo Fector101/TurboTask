@@ -13,6 +13,7 @@ const { description, version } = require('./package.json');
 
 const {greenText,redText,createDirectory,readFile,writeFile} = require("./helper")
 const {removeComments, myStrip} = require('./workers/basic')
+const folders_to_ignore=[ 'node_modules', '.git']
 
 
 /**
@@ -70,7 +71,6 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
     }
   }
 
-  const folders_to_ignore=[ 'node_modules', '.git']
   // const paths_to_ignore=[ 'node_modules' ]
 
   // if (!fs.existsSync(outputDirectoryPath)) {
@@ -109,7 +109,7 @@ function groupFormat(format='',Basedir='./'){
         const current_folder=folders[0]
         const list_of_filesNdFolders=fs.readdirSync(current_folder)
         
-        for (each in list_of_filesNdFolders){
+        for (const each in list_of_filesNdFolders){
             const current_path = path.join(current_folder ,each)
             const stats_= fs.statSync(filePath)
             if (stats_.isDirectory){
@@ -117,26 +117,27 @@ function groupFormat(format='',Basedir='./'){
                     try{
                         has_files_in_it = fs.readdirSync(current_path).length
                     }
-                    catch{ // Incase i can't read dir
+                    catch(err){ // Incase i can't read dir
+                      console.log('Error reading folder',e)
                         has_files_in_it=0
                     }
                     const group_in_name= current_path.startsWith('group')
-                    if (has_files_in_it && !group_in_name){
+                    if (has_files_in_it && !group_in_name && !folders_to_ignore.includes(each)){
                         folders.append(current_path)
                     }
             }
             else{
                 const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
                 
-                if (folder_name && !fs.existsSync(folder_name)){
-                    fs.mkdirSync(folder_name)
+                if (!fs.existsSync(folder_name)){
+                    // fs.mkdirSync(folder_name)
+                    console.log('making folder')
                 }
-
-                const list_Of_files_in_folder=os.listdir(folder_name)
                 try{
-                    moveFileToDirectory(current_path, folder_name);
+                  console.log('moving file')
+                    // moveFileToDirectory(current_path, folder_name);
                 }
-                catch{}
+                catch(err){console.log('moving file error',err)}
             }
         }
         
@@ -153,7 +154,7 @@ if(require.main === module){
   program
       .version('0.2.14')
       .description(`${description}\nTurboTask: A versatile Node.js toolkit for file processing operations. Currently supports CSS minification with plans for expanded functionality`)
-      .version(version, '-V, --version', 'output the version number')
+      // .version(version, '-V, --version', 'output the version number')
       .helpOption('-h, --help', 'display help for command');
 
       //commands
