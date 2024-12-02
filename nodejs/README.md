@@ -199,6 +199,7 @@ The toolkit is designed for expansion. Planned features include:
 
 3. **General Utilities**
    - Advanced file manipulation
+   - API service
 
 ## 🤝 Contributing
 
@@ -215,6 +216,10 @@ Common error messages and their meanings:
 - `<Error - [filepath] Doesn't Exist>`: File not found
 - `Failed to create directory`: Permission or path issues
 - Custom error messages can be specified for writeFile operations
+
+## 🐛 Reporting Issues
+
+Found a bug? Please open an issue on our [GitHub Issues](https://github.com/Fector101/TurboTask/issues) page.
 
 ## 📝 Notes
 

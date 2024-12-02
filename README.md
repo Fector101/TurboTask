@@ -100,9 +100,12 @@ TurboTask noWhiteSpace ./styles ./minified
 - [Python Documentation](./python/README.md)
 - [Node.js Documentation](./nodejs/README.md)
 
+## 🐛 Reporting Issues
+
+Found a bug? Please open an issue on our [GitHub Issues](https://github.com/Fector101/TurboTask/issues) page.
+
 ## 🛣️ Roadmap
 
-- [ ] File type grouping
 - [ ] Media file analysis
 - [ ] Cross-platform GUI
 - [ ] Web interface
