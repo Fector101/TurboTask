@@ -116,7 +116,7 @@ const {noWhiteSpace} = require("turbotask")
 // For Single File
 noWhiteSpace('main.css','main-new.css')
 
-// For Folders File
+// For a Folder
 noWhiteSpace('./styles','./minified')
 noWhiteSpace('./','./minified')
 

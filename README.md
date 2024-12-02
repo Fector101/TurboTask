@@ -10,22 +10,32 @@
 ## 📦 Available Packages
 
 ### [Python Implementation](./python)
+
 ```bash
 pip install TurboTask
 ```
+
 - Python 3.6+ support
 - Available via PyPI
 - [View Python Documentation](./python/README.md)
 
 ### [Node.js Implementation](./nodejs)
+
 ```bash
 npm install turbotask
 ```
+
 - Node.js 14+ support
 - Available via npm
 - [View Node.js Documentation](./nodejs/README.md)
 
 ## 🚀 Key Features
+
+Node.js implementation offers:
+
+- **File Grouping**
+  - Automatically organize files by file type
+  - Handle nested directory processing
 
 Both implementations offer:
 
@@ -34,16 +44,11 @@ Both implementations offer:
   - Comment removal
   - Whitespace optimization
   - Directory structure preservation
+
 - **Batch Processing**
   - Multiple file handling
   - Recursive directory processing
   - Custom output paths
-
-Node.js implementation offers:
-
-- **File Grouping**
-  - Automatically organize files by file type
-  - Handle nested directory processing
 
 ## 🔄 Version Compatibility
 
@@ -65,9 +70,13 @@ Choose your preferred implementation:
 # Install
 npm install -g turbotask
 
-# Use
+# Groups are files in current file directory
 turbotask group "./"
+
+# Group files in specific directory
 turbotask group "C:/Users/jane/Downloads"
+
+# Creates a 'TurboTask-output' Folder with minified CSS files
 turbotask noWhiteSpace ./styles
 ```
 
@@ -77,8 +86,10 @@ turbotask noWhiteSpace ./styles
 # Install
 pip install TurboTask
 
-# Use
+# Creates a 'TurboTask-output' Folder with minified CSS files
 TurboTask noWhiteSpace style.css
+
+# Creates a 'minified' Folder with minified CSS files
 TurboTask noWhiteSpace ./styles ./minified
 ```
 
@@ -108,12 +119,12 @@ If you find TurboTask helpful, consider buying me a coffee!
 ## 👤 Author
 
 **Fabian**
-- Email: fector101@yahoo.com
+
+- Email: <fector101@yahoo.com>
 - GitHub: [@Fector101](https://github.com/Fector101/TurboTask)
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 
 Found this project helpful? Give it a ⭐️ on GitHub!

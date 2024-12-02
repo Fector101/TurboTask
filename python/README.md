@@ -98,7 +98,6 @@ Your support helps me to:
 - Maintain and improve TurboTask
 - Add new features
 - Keep the project active
-<!-- - Cover hosting costs -->
 
 ## 📄 License
 
@@ -117,7 +116,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📚 Documentation
 
-For detailed documentation and advanced usage examples, visit our [GitHub Wiki](https://github.com/Fector101/TurboTask/wiki).
+For detailed documentation and advanced usage examples, visit our [GitHub](https://github.com/Fector101/TurboTask/).
 
 ---
 
