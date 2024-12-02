@@ -33,6 +33,8 @@
   },
   "homepage": "https://github.com/Fector101/TurboTask#readme",
   "dependencies": {
+    "ansi-colors": "^4.1.3",
+    "cli-progress": "^3.12.0",
     "commander": "^12.1.0"
   }
 }

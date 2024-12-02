@@ -102,73 +102,6 @@ function removeComments(code) {
 }
 
 
-function moveFileToDirectory(src, destDir) {
-    const fileName = path.basename(src)
-    let dest = path.join(destDir, fileName)
-  
-    // Check if the file already exists in the destination directory
-    let counter = 1
-    while (fs.existsSync(dest)) {
-        const extname = path.extname(fileName) // gets extension name
-        const basename = path.basename(fileName, extname) // get actual file name
-        const newFileName = `${basename} (${counter})${extname}`
-        dest = path.join(destDir, newFileName)
-        counter++
-    }
-  
-    // This try's to move or rename and move the file
-    fs.rename(src, dest, (err) => {
-        if (err) {
-            console.error('Error moving the file:', err)
-        } else {
-            console.log(`File moved to: ${dest}`)
-        }
-    })
-}
-  
-function deleteEmptyFolders(dirPath) {
-    // Read the contents of the directory
-    fs.readdir(dirPath, (err, files) => {
-      if (err) {
-        console.error('Error reading directory:', err);
-        return;
-      }
-  
-      // Iterate over the files and subdirectories in the directory
-      files.forEach((file) => {
-        const filePath = path.join(dirPath, file);
-        
-        // If it's a directory, recursively call deleteEmptyFolders
-        fs.stat(filePath, (err, stats) => {
-          if (err) {
-            console.error('Error checking file stats:', err);
-            return;
-          }
-  
-          if (stats.isDirectory()) {
-            // Recursively delete empty folders inside this directory
-            deleteEmptyFolders(filePath);
-          }
-        });
-      });
-  
-      // After checking subdirectories, check if the current directory is empty
-      fs.readdir(dirPath, (err, files) => {
-        if (files.length === 0) {
-          // If it's empty, remove the directory
-          fs.rmdir(dirPath, (err) => {
-            if (err) {
-              console.error('Error removing directory:', err);
-            } else {
-              console.log(`Removed empty directory: ${dirPath}`);
-            }
-          });
-        }
-      });
-    });
-}
-  
-
 
 
 // // Export a simpler version for the module
@@ -184,4 +117,4 @@ function deleteEmptyFolders(dirPath) {
 //     // Then, preserve spaces between selectors, but remove spaces inside the selector or rule
 //     .replace(/(?<=\S)\s+(?=\S)/g, ''); 
 // }
-module.exports={removeComments, myStrip, moveFileToDirectory, deleteEmptyFolders}
+module.exports={removeComments, myStrip}

@@ -3,7 +3,8 @@
 [![npm version](https://img.shields.io/npm/v/turbotask.svg)](https://www.npmjs.com/package/turbotask)
 [![License](https://img.shields.io/npm/l/turbotask.svg)](https://github.com/yourusername/turbotask/blob/main/LICENSE)
 
-A versatile Node.js toolkit for file processing operations. Currently supports CSS minification with plans for expanded functionality including file grouping, media duration analysis, and more.
+A versatile Node.js toolkit designed to simplify file processing tasks, with a focus on efficiency and ease of use.
+Currently supports File Grouping and CSS minification with plans for expanded functionality including media analysis, and more.
 
 ## 🚀 Quick Start
 
@@ -15,6 +16,10 @@ npm install -g turbotask
 
 ### Current Features
 
+- **File Grouping**
+  - Automatically organize files by file type
+  - Handle nested directory processing
+
 - **CSS Processing**
   - Minify CSS files by removing comments and whitespace
   - Process single files or entire directories
@@ -23,8 +28,7 @@ npm install -g turbotask
 
 ### Planned Features
 
-- File grouping by type
-- Media file duration analysis
+- Media analysis
 - More file processing capabilities (coming soon)
 
 ## 📦 Installation
@@ -42,15 +46,47 @@ npm install -g turbotask
 git clone https://github.com/Fector101/TurboTask.git
 
 # Navigate to the project directory
-cd turbotask
+cd TurboTask/nodejs
 
 # Install dependencies
-npm install
+npm install -g .
 ```
 
-## 🔨 Usage
+## 🔨 Usage Guide
 
-Currently, the tool supports CSS processing:
+### File Grouping
+
+```bash
+turbotask group [optional_main_path]
+```
+
+The group arguments:
+
+1. [optional_main_path] The main Folder the code will start the scan from (default is './' the folder the code is being ran from).
+
+#### Examples For CLI Usage
+
+```bash
+# Group files in current directory
+turbotask group
+
+# Group files in specific directory
+turbotask group "C:/Users/Bob/Downloads"
+```
+
+#### Examples For In-File Usage
+
+```javascript
+const {group} = require("turbotask")
+
+// Groups are files in downloads folder
+group('C:/Users/Bob/Downloads')
+
+// Groups are files in current file directory
+group('./')
+```
+
+### CSS Whitespace Removal
 
 ```bash
 turbotask noWhiteSpace <input_css_path> [optional_output_path]
@@ -61,7 +97,7 @@ The noWhiteSpace arguments:
 1. <input_css_path> can be a CSS file or Folder with CSS Files.
 2. [output_path] Output directory (defaults to "TurboTask-output") can be changed to a File or Folder Path
 
-### Examples For CLI Usage
+#### Examples For CLI Usage
 
 ```bash
 turbotask noWhiteSpace rough.css clean.css
@@ -73,10 +109,9 @@ OR
 turbotask noWhiteSpace ./styles ./minified
 ```
 
-### Examples For In-File Usage
+#### Examples For In-File Usage
 
 ```javascript
-const path = require("path") // This is packaged with NodeJS
 const {noWhiteSpace} = require("turbotask")
 // For Single File
 noWhiteSpace('main.css','main-new.css')
