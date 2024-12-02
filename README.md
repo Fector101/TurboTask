@@ -28,6 +28,7 @@ npm install turbotask
 ## 🚀 Key Features
 
 Both implementations offer:
+
 - **CSS Processing**
   - Minification
   - Comment removal
@@ -38,10 +39,17 @@ Both implementations offer:
   - Recursive directory processing
   - Custom output paths
 
+Node.js implementation offers:
+
+- **File Grouping**
+  - Automatically organize files by file type
+  - Handle nested directory processing
+
 ## 🔄 Version Compatibility
 
 | Feature                | Python Package | Node.js Package |
 |-----------------------|----------------|-----------------|
+| File Grouping         | ❌             | ✅              |
 | CSS Minification      | ✅             | ✅              |
 | Directory Processing  | ✅             | ✅              |
 | Custom Output Paths   | ✅             | ✅              |
@@ -51,23 +59,35 @@ Both implementations offer:
 
 Choose your preferred implementation:
 
+### Node.js
+
+```bash
+# Install
+npm install -g turbotask
+
+# Use
+turbotask group "./"
+turbotask group "C:/Users/jane/Downloads"
+turbotask noWhiteSpace ./styles
+```
+
 ### Python
+
 ```bash
 # Install
 pip install TurboTask
 
 # Use
 TurboTask noWhiteSpace style.css
+TurboTask noWhiteSpace ./styles ./minified
 ```
 
-### Node.js
-```bash
-# Install
-npm install turbotask
+---
 
-# Use
-turbotask noWhiteSpace style.css
-```
+📚 For detailed documentation, visit the respective package directories:
+
+- [Python Documentation](./python/README.md)
+- [Node.js Documentation](./nodejs/README.md)
 
 ## 🛣️ Roadmap
 
@@ -95,10 +115,5 @@ If you find TurboTask helpful, consider buying me a coffee!
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
-
-📚 For detailed documentation, visit the respective package directories:
-- [Python Documentation](./python/README.md)
-- [Node.js Documentation](./nodejs/README.md)
 
 Found this project helpful? Give it a ⭐️ on GitHub!

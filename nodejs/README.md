@@ -33,7 +33,7 @@ npm install -g turbotask
 
 ## 📦 Installation
 
-### NPM
+### NPM (Recommended)
 
 ```bash
 npm install -g turbotask
@@ -60,7 +60,7 @@ npm install -g .
 turbotask group [optional_main_path]
 ```
 
-The group arguments:
+The 'group' argument:
 
 1. [optional_main_path] The main Folder the code will start the scan from (default is './' the folder the code is being ran from).
 
@@ -95,7 +95,7 @@ turbotask noWhiteSpace <input_css_path> [optional_output_path]
 The noWhiteSpace arguments:
 
 1. <input_css_path> can be a CSS file or Folder with CSS Files.
-2. [output_path] Output directory (defaults to "TurboTask-output") can be changed to a File or Folder Path
+2. [optional_output_path] Output directory (defaults to "TurboTask-output") can be changed to a File or Folder Path
 
 #### Examples For CLI Usage
 
@@ -190,8 +190,6 @@ The toolkit implements comprehensive error handling:
 The toolkit is designed for expansion. Planned features include:
 
 1. **File Organization**
-   - Group files by type
-   - Smart file sorting
    - Duplicate detection
 
 2. **Media Processing**
@@ -200,8 +198,6 @@ The toolkit is designed for expansion. Planned features include:
    - Metadata extraction
 
 3. **General Utilities**
-   - Batch processing capabilities
-   - Custom filtering rules
    - Advanced file manipulation
 
 ## 🤝 Contributing
