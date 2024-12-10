@@ -13,11 +13,10 @@ const { description, version } = require('./package.json');
 const { 
     greenText, redText,
     createDirectory, readFile, writeFile,
-    deleteEmptyFolders,moveFileToDirectory,
-    failSafeRootPath,logErrors,formattedDate,
-    Progress  
-    } = require("./helper")
-const { removeComments, myStrip} = require('./workers/basic')
+    failSafeRootPath} = require("./helper")
+const { removeComments, myStrip, GroupFormat} = require('./workers/classes')
+
+
 const folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
 
 
@@ -97,125 +96,13 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
 
 /**
  * Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir
+ * @instance groupFormat().then(operation_details=>console.log(operation_details))
  * @param {string} [Basedir='./'] - Path To start the Scan
+ * @returns {object} Object of Number of scanned Folders, Moved Files And Object of Errors if any
  */
-function groupFormat(Basedir = './') {
-// function groupFormat(Basedir = './',format = '') { TODO group only a specified format
-    console.log(`Root Folder: ${path.resolve(Basedir)}`)
-
-    let folders = [Basedir]
-    let current_folder = folders[0]
-    let list_of_filesNdFolders = fs.readdirSync(current_folder)
-
-    let errors_count=0
-    let errors=[]
-
-    const task_progress = new Progress()
-    task_progress.start(0)
-
-    function updateErrorInfo(error,file_path){
-        errors_count+=1
-        let err_name='UnknownError '
-        if(error.code==='ENOENT'){
-            err_name='No such file or directory '
-        }else if(error.code=== 'EACCES'){
-            err_name='Permission denied '
-        }
-        errors.push({
-            name: err_name,
-            code: error.code || "UnknownCode",
-            message: error.message || "No message available",
-            location: file_path,
-            time: formattedDate()
-        })
-        task_progress.updateErrorCount(errors_count)
-    }
-    /**
-     * Creates Gro
-     * @param {string} current_path - current path in Loop
-     */
-    function addFolderToKeepLoop(current_path){
-        let has_files_in_it = false
-        try {
-            has_files_in_it = fs.readdirSync(current_path).length
-        }
-        catch (err) { // Incase i can't read dir
-            updateErrorInfo(err,current_path)
-            has_files_in_it = 0
-        }
-        const group_in_name = current_path.startsWith('group')
-        if (has_files_in_it && !group_in_name && !folders_to_ignore.includes(each)) {
-            folders.push(current_path)
-            task_progress.updateTotal(1)
-        }
-    }
-    /**
-     * 
-     * @param {string} each - Current Folder name in Loop
-     * @returns {string} Folder Name
-     */
-    function createGroupFolder(each){
-        const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
-        if (!fs.existsSync(folder_name)) {
-            fs.mkdirSync(folder_name)
-        }
-        return folder_name
-    }
-
-    /**
-     * 
-     * @param {string} current_path - The files current Path
-     * @param {string} folder_name - Path of folder being moved to
-     */
-    function moveFile(current_path,folder_name){
-        try {
-            // Fail safe from then package is required and not ran from terminal
-            const running_frm_script_path=process.argv[1]
-            if(running_frm_script_path !== path.resolve(current_folder, path.basename(current_path) ) ){
-                moveFileToDirectory(current_path, folder_name);
-            }
-        }
-        catch (err) { 
-            updateErrorInfo(err,current_path)   // TODO await function in helper.js and throw error
-        }
-    }
-    while (folders.length) {
-        for (let each of list_of_filesNdFolders) {
-        
-            const current_path = path.join(current_folder, each)
-            let stats_ = undefined
-            
-            try{stats_ = fs.statSync(current_path)}
-            catch(err){ // Error would be because file/folder was moved or permission error
-                updateErrorInfo(err,current_path)
-                continue
-            }
-            
-            if (stats_.isDirectory()) {
-                addFolderToKeepLoop(current_path)
-            }
-            else {
-                const folder_name = createGroupFolder(each)
-                moveFile(current_path,folder_name)
-                
-            }
-        }
-
-        deleteEmptyFolders(Basedir)
-
-        folders.shift()
-        current_folder = folders[0]
-        
-        if(current_folder){
-            task_progress.increment()
-            list_of_filesNdFolders = fs.readdirSync(current_folder)
-        }
-
-    }
-    deleteEmptyFolders(current_folder)
-    task_progress.stop()
-    console.log('Done !!!')
-    errors_count && logErrors(errors,Basedir)
+function groupFormat(Basedir= './'){
+    const instance_ = new GroupFormat(Basedir)
+    return instance_.start()
 }
 
 if (require.main === module) {
@@ -250,7 +137,7 @@ if (require.main === module) {
             Basedir = failSafeRootPath(Basedir)
 
             if (fs.existsSync(Basedir)) {
-                groupFormat(Basedir);
+                groupFormat(Basedir)
             } else {
                 console.error(`${redText(Basedir)} does not exist.`);
             }
@@ -261,4 +148,4 @@ if (require.main === module) {
 }
 
 
-module.exports = { noWhiteSpace,groupFormat }
+module.exports = { noWhiteSpace, groupFormat}

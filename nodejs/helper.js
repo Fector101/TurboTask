@@ -269,10 +269,37 @@ function formattedDate(){
 	return `${hours}:${minutes}:${seconds}, ${day} ${dayOfMonth} ${month}, ${year}`;
 }
 
+
+
+const readline = require('readline');
+/**
+ * For getting Input From User 
+ * @param {string} text - Question For User
+ * @returns {string} Input from User
+ */
+function input(text=''){
+	return new Promise((resolve, reject) => {
+		const rl = readline.createInterface({
+		input: process.stdin,
+		output: process.stdout
+		});
+		
+		rl.question(text, (user_input) => {
+		rl.close();
+		resolve(user_input)
+		});
+	})
+	
+}	
+
+
+
+
+
 module.exports = {
 	greenText, redText, createDirectory, readFile, writeFile,
 	moveFileToDirectory, deleteEmptyFolders,
-	failSafeRootPath, logErrors,formattedDate,
+	failSafeRootPath, logErrors,formattedDate,input,
 	Progress
 }
 
