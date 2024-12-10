@@ -81,7 +81,7 @@ const {group} = require("turbotask")
 
 // Groups are files in downloads folder
 group('C:/Users/Bob/Downloads')
-
+  .then(details=>console.log(details))
 // Groups are files in current file directory
 group('./')
 ```
@@ -122,37 +122,6 @@ noWhiteSpace('./','./minified')
 
 // If you dont' want to Over-Write Original Files add a output folder
 noWhiteSpace('','')
-```
-
-## 🛠️ Core Utilities
-
-### File Operations
-
-#### Directory Management
-
-```javascript
-// Create directory (creates parent directories if needed)
-createDirectory('./path/to/new/directory');
-```
-
-#### File Reading/Writing
-
-```javascript
-// Read file
-const content = readFile('./path/to/file.css');
-
-// Write file
-writeFile(content, './output/path.css', 
-  'Success message', 'Error message');
-```
-
-### Console Output
-
-The toolkit includes formatted console output with color coding:
-
-```javascript
-console.log(greenText('Success!')); // Green colored success message
-console.log(redText('Error!')); // Red colored error message
 ```
 
 ### Error Handling
