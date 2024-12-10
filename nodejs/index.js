@@ -26,7 +26,6 @@ const folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
  * @param {string} inputFilePath - Path to the input CSS file || CSS Folder Path
  * @param {string} outputFilePath - Path where the processed file will be saved
 */
-//  * @param {boolean} [removeCommentsFlag=true] - Whether to remove comments
 function noWhiteSpace(inputFilePath, outputFilePath) {
     // Error Checking for when function is imported directly
     inputFilePath = [" ", ""].includes(inputFilePath) ? "./" : inputFilePath
@@ -43,10 +42,7 @@ function noWhiteSpace(inputFilePath, outputFilePath) {
     let cssContent = readFile(inputFilePath);
     if (!cssContent) return;
 
-    // if (removeCommentsFlag) {
     cssContent = removeComments(cssContent);
-    // }
-
     cssContent = myStrip(cssContent);
 
     writeFile(
@@ -76,12 +72,6 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
         }
     }
 
-    // const paths_to_ignore=[ 'node_modules' ]
-
-    // if (!fs.existsSync(outputDirectoryPath)) {
-    //   createDirectory(outputDirectoryPath);
-    // }
-
     fs.readdirSync(inputDirectoryPath, { withFileTypes: true }).forEach((entry) => {
         const fullPath = path.join(inputDirectoryPath, entry.name);
 
@@ -101,8 +91,6 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
     });
 }
 
-
-//  * @param {string} [format='*'] - If not provided for function, function arranges all formats
 
 /**
  * Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir
@@ -168,8 +156,6 @@ function groupFormat(Basedir = './') {
                     // console.log(current_path)
                     folders.push(current_path)
                     task_progress.updateTotal(1)
-                }else if(!has_files_in_it){
-                    deleteEmptyFolders(current_path)
                 }
             }
             else {
@@ -193,6 +179,7 @@ function groupFormat(Basedir = './') {
                 }
             }
         }
+        deleteEmptyFolders(current_folder)
         folders.shift()
         current_folder = folders[0]
         if(current_folder){
