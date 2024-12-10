@@ -106,8 +106,10 @@ function groupFormat(Basedir = './') {
     let folders = [Basedir]
     let current_folder = folders[0]
     let list_of_filesNdFolders = fs.readdirSync(current_folder)
+
     let errors_count=0
     let errors=[]
+
     const task_progress = new Progress()
     task_progress.start(0)
 
@@ -128,66 +130,89 @@ function groupFormat(Basedir = './') {
         })
         task_progress.updateErrorCount(errors_count)
     }
+    /**
+     * Creates Gro
+     * @param {string} current_path - current path in Loop
+     */
+    function addFolderToKeepLoop(current_path){
+        let has_files_in_it = false
+        try {
+            has_files_in_it = fs.readdirSync(current_path).length
+        }
+        catch (err) { // Incase i can't read dir
+            updateErrorInfo(err,current_path)
+            has_files_in_it = 0
+        }
+        const group_in_name = current_path.startsWith('group')
+        if (has_files_in_it && !group_in_name && !folders_to_ignore.includes(each)) {
+            folders.push(current_path)
+            task_progress.updateTotal(1)
+        }
+    }
+    /**
+     * 
+     * @param {string} each - Current Folder name in Loop
+     * @returns {string} Folder Name
+     */
+    function createGroupFolder(each){
+        const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
+        if (!fs.existsSync(folder_name)) {
+            fs.mkdirSync(folder_name)
+        }
+        return folder_name
+    }
 
-
+    /**
+     * 
+     * @param {string} current_path - The files current Path
+     * @param {string} folder_name - Path of folder being moved to
+     */
+    function moveFile(current_path,folder_name){
+        try {
+            // Fail safe from then package is required and not ran from terminal
+            const running_frm_script_path=process.argv[1]
+            if(running_frm_script_path !== path.resolve(current_folder, path.basename(current_path) ) ){
+                moveFileToDirectory(current_path, folder_name);
+            }
+        }
+        catch (err) { 
+            updateErrorInfo(err,current_path)   // TODO await function in helper.js and throw error
+        }
+    }
     while (folders.length) {
         for (let each of list_of_filesNdFolders) {
+        
             const current_path = path.join(current_folder, each)
-            
             let stats_ = undefined
+            
             try{stats_ = fs.statSync(current_path)}
-            catch(err){//Should be file moved or permission error
+            catch(err){ // Error would be because file/folder was moved or permission error
                 updateErrorInfo(err,current_path)
                 continue
             }
+            
             if (stats_.isDirectory()) {
-                let has_files_in_it = false
-                try {
-                    has_files_in_it = fs.readdirSync(current_path).length
-                }
-                catch (err) { // Incase i can't read dir
-                    // console.log('Error reading folder', err)
-                    updateErrorInfo(err,current_path)
-                    has_files_in_it = 0
-                }
-                const group_in_name = current_path.startsWith('group')
-                if (has_files_in_it && !group_in_name && !folders_to_ignore.includes(each)) {
-                    // console.log(current_path)
-                    folders.push(current_path)
-                    task_progress.updateTotal(1)
-                }
+                addFolderToKeepLoop(current_path)
             }
             else {
-                const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
-
-                if (!fs.existsSync(folder_name)) {
-                    fs.mkdirSync(folder_name)
-                    // console.log('making folder')
-                }
-                try {
-                    // console.log('moving file ',each)
-                    const running_frm_script_path=process.argv[1]
-                    if(running_frm_script_path !== path.resolve(current_folder, path.basename(current_path) ) ){
-                        // Fail safe from then package is required and not ran from terminal
-                        moveFileToDirectory(current_path, folder_name);
-                    }
-                }
-                catch (err) { 
-                    updateErrorInfo(err,current_path)   // TODO await function in helper.js and throw error
-                    // console.log('moving file error', err) 
-                }
+                const folder_name = createGroupFolder(each)
+                moveFile(current_path,folder_name)
+                
             }
         }
-        
-        deleteEmptyFolders(current_folder)
+
+        deleteEmptyFolders(Basedir)
+
         folders.shift()
         current_folder = folders[0]
+        
         if(current_folder){
             task_progress.increment()
             list_of_filesNdFolders = fs.readdirSync(current_folder)
         }
 
     }
+    deleteEmptyFolders(current_folder)
     task_progress.stop()
     console.log('Done !!!')
     errors_count && logErrors(errors,Basedir)
