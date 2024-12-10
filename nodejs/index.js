@@ -100,7 +100,7 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
  * @param {string} [Basedir='./'] - Path To start the Scan
  * @returns {object} Object of Number of scanned Folders, Moved Files And Object of Errors if any
  */
-function groupFormat(Basedir= './'){
+function group(Basedir= './'){
     const instance_ = new GroupFormat(Basedir)
     return instance_.start()
 }
@@ -137,7 +137,7 @@ if (require.main === module) {
             Basedir = failSafeRootPath(Basedir)
 
             if (fs.existsSync(Basedir)) {
-                groupFormat(Basedir)
+                group(Basedir)
             } else {
                 console.error(`${redText(Basedir)} does not exist.`);
             }
@@ -148,4 +148,4 @@ if (require.main === module) {
 }
 
 
-module.exports = { noWhiteSpace, groupFormat}
+module.exports = { noWhiteSpace, group}
