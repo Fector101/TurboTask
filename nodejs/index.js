@@ -27,12 +27,15 @@ const folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
  * @param {string} outputFilePath - Path where the processed file will be saved
 */
 function noWhiteSpace(inputFilePath, outputFilePath) {
+    
     // Error Checking for when function is imported directly
-    inputFilePath = [" ", ""].includes(inputFilePath) ? "./" : inputFilePath
+    inputFilePath = failSafeRootPath(inputFilePath)
+
     if (!fs.existsSync(inputFilePath)) {
         console.error(`${redText(inputPath)} does not exist.`)
         return
     }
+
     // Point to Another Function If Folder Path Passed In.
     if (fs.lstatSync(inputFilePath).isDirectory()) {
         processDirectory(inputFilePath, outputFilePath)
@@ -97,23 +100,19 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
  * @param {string} [Basedir='./'] - Path To start the Scan
  */
 function groupFormat(Basedir = './') {
-// function groupFormat(Basedir = './',format = '') {
-    // TODO group only a specified format
-    console.log(`Root Folder: ${path.resolve('./')}`)
+// function groupFormat(Basedir = './',format = '') { TODO group only a specified format
+    console.log(`Root Folder: ${path.resolve(Basedir)}`)
+
     let folders = [Basedir]
     let current_folder = folders[0]
     let list_of_filesNdFolders = fs.readdirSync(current_folder)
-    // console.log(list_of_filesNdFolders)
-    const task_progress = new Progress()
-    task_progress.start(0)
-    // return
     let errors_count=0
     let errors=[]
+    const task_progress = new Progress()
+    task_progress.start(0)
 
     function updateErrorInfo(error,file_path){
         errors_count+=1
-        
-
         let err_name='UnknownError '
         if(error.code==='ENOENT'){
             err_name='No such file or directory '
@@ -179,11 +178,11 @@ function groupFormat(Basedir = './') {
                 }
             }
         }
+        
         deleteEmptyFolders(current_folder)
         folders.shift()
         current_folder = folders[0]
         if(current_folder){
-            // console.log(current_folder,'|||')
             task_progress.increment()
             list_of_filesNdFolders = fs.readdirSync(current_folder)
         }

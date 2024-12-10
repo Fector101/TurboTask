@@ -221,7 +221,11 @@ class Progress {
 	}
 	// stop the bar
 }
-
+/**
+ * 
+ * @param {string} inputted_path - Unformatted path from user
+ * @returns {string} Right Format of Root path or inputted path
+ */
 function failSafeRootPath(inputted_path) {
 	let new_path = inputted_path
 	if ([" ", "", '/'].includes(inputted_path)) {
