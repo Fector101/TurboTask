@@ -96,7 +96,7 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
 
 /**
  * Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir
- * @instance groupFormat().then(operation_details=>console.log(operation_details))
+ * @instance group().then(operation_details=>console.log(operation_details))
  * @param {string} [Basedir='./'] - Path To start the Scan
  * @returns {object} Object of Number of scanned Folders, Moved Files And Object of Errors if any
  */

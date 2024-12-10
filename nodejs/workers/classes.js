@@ -135,7 +135,7 @@ class GroupFormat {
 
         const user_input = await this.askToProceed("Enter \"y\" to Proceed or \"n\" to Cancel: ")
 
-        if(user_input !== 'y') return
+        if(user_input !== 'y') return "GoodBye!!!"
 
         this.folders = [this.Basedir]
         let current_folder = this.folders[0]
@@ -163,7 +163,7 @@ class GroupFormat {
                     this.addFolderToKeepLoop(current_path,each)
                 }
                 else {
-                    const folder_name = this.createGroupFolder(each)
+                    const folder_name = path.join(this.Basedir,this.createGroupFolder(each))
                     this.moveFile(current_path,folder_name)
                     number_of_moved_files++
                     
