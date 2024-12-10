@@ -155,26 +155,6 @@ console.log(greenText('Success!')); // Green colored success message
 console.log(redText('Error!')); // Red colored error message
 ```
 
-## 🏗️ Technical Architecture
-
-### Core Modules
-
-#### Helper Utilities (`helper.js`)
-
-- File system operations
-  - `createDirectory()`: Create directories recursively
-  - `readFile()`: Safe file reading with error handling
-  - `writeFile()`: Safe file writing with directory creation
-- Console formatting
-  - `greenText()`: Format success messages
-  - `redText()`: Format error messages
-
-#### CSS Processing (`workers/basic.js`)
-
-- `removeComments()`: Strip CSS comments
-- `myStrip()`: Remove unnecessary whitespace
-- Validation and safety checks
-
 ### Error Handling
 
 The toolkit implements comprehensive error handling:
