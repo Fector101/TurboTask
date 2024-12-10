@@ -163,7 +163,7 @@ class GroupFormat {
                     this.addFolderToKeepLoop(current_path,each)
                 }
                 else {
-                    const folder_name = path.join(this.Basedir,this.createGroupFolder(each))
+                    const folder_name = this.createGroupFolder(each)
                     this.moveFile(current_path,folder_name)
                     number_of_moved_files++
                     
@@ -241,7 +241,7 @@ class GroupFormat {
     * @returns {string} Folder Name
     */
     createGroupFolder(each){
-        const folder_name = `group ${each.slice(each.lastIndexOf('.'))}`.trim()
+        const folder_name = path.join(this.Basedir,`group ${each.slice(each.lastIndexOf('.'))}`.trim())
         if (!fs.existsSync(folder_name)) {
             fs.mkdirSync(folder_name)
         }
