@@ -1,6 +1,6 @@
 {
   "name": "turbotask",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "A command-line tool that Makes Handling files quick and easy.",
   "main": "index.js",
   "author": "Fabian",
