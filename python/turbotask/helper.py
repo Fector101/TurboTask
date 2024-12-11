@@ -1,7 +1,9 @@
 import string as STR
-import os
-
 from colorama import Fore, Style, init as coloramaInit
+
+import os
+import shutil
+
 coloramaInit()
 
 
@@ -58,9 +60,9 @@ def readFile(input_css_file_path):
         
     except Exception as e:
         if type(e).__name__ == "FileNotFoundError":
-            print(f"<Error - {redText(input_css_file_path)} Doesn't Exist>")
+            print(f"<Error - {Colors.red_text(input_css_file_path)} Doesn't Exist>")
         else:
-            print(f"Failed to Read File '{redText(input_css_file_path)}': {e}")
+            print(f"Failed to Read File '{Colors.red_text(input_css_file_path)}': {e}")
         return None
 
 def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_msg="<Dev> - Default Error Msg"):
@@ -101,3 +103,26 @@ def canReadandWritePermission(absolute_path):
         boolean: Either true or false
     """
     return os.access(absolute_path,os.R_OK) and os.access(absolute_path,os.W_OK)
+
+def isFolderEmpty(folder_path):
+    try:
+        return next(os.scandir(folder_path), None) is None
+    except:     #Incase Folder is Moved
+        return False
+    
+    
+
+def move_file_to_directory(src, dest_dir):
+    file_name = os.path.basename(src)
+    dest = os.path.join(dest_dir, file_name)
+
+    # Check if the file already exists in the destination directory
+    counter = 1
+    while os.path.exists(dest):
+        extname = os.path.splitext(file_name)[1]  # Get the file extension
+        basename = os.path.splitext(file_name)[0]  # Get the base name without extension
+        new_file_name = f"{basename} ({counter}){extname}"
+        dest = os.path.join(dest_dir, new_file_name)
+        counter += 1
+    shutil.move(src, dest)
+    

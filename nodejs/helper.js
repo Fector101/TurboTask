@@ -28,7 +28,7 @@ function greenText(text) {
  * @returns {string} ANSI color formatted string
  */
 function redText(text) {
-	return `\x1b[31m'${text}'\x1b[0m`;
+	return colors.redBright(text)
 }
 
 

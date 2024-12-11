@@ -1,4 +1,4 @@
-from ..helper import failSafeRootPath,canReadandWritePermission,Colors
+from ..helper import failSafeRootPath,canReadandWritePermission,Colors,isFolderEmpty
 import os
 def myStrip(code:str):
     """Removes unnesseccary white space and empty selectors. (div{})"""
@@ -76,6 +76,7 @@ def removeComments(code:str):
 
 import typing
 from dataclasses import dataclass, field
+folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
 
 class GroupFormat:
     """
@@ -106,8 +107,22 @@ class GroupFormat:
         self.__very_private_attribute = None  # Name mangling for stronger privacy
     def updateErrorInfo(self,error_obj,absolute_path):
         ...
+    def getEndLog(self):
+        return {
+            "Number of scanned folders":self.number_of_scanned_folders,
+            "Number of Moved Files":self.number_of_moved_files,
+            'Errors':self.errors
+        }
+        
     def verifyPath(self):
+        """Checks if folder exists, can read folder's content, can move files, 
+        displays warning if folder directly in root path and can still can read and write
+
+        Returns:
+            boolean: If you can go ahead to scan Recursively
+        """
         if os.path.exists(self.main_folder) and os.path.isdir(self.main_folder):
+            
             folder_absolute_path = os.path.abspath(self.main_folder)
             if canReadandWritePermission(folder_absolute_path):
                 drive_absolute_path = os.path.abspath(os.sep)
@@ -122,12 +137,48 @@ class GroupFormat:
             
         else:
             print(f"{Colors.red_text(self.main_folder)} Folder does not exist.")
+            self.updateErrorInfo({message:self.main_folder+" Folder does not exist"},self.main_folder)
             return False
+    def addFolderToKeepLoop(self,current_path,folder_name):
+        folder_not_empty = not isFolderEmpty(current_path)
+
+        if folder_not_empty and folder_name not in folders_to_ignore:
+            self.folders.append(current_path)
+            # self.task_progress.updateTotal(1)
             
     def start(self):
-        isVerified= self.verifyPath()
-        print(isVerified)
+        verified= self.verifyPath()
+        if not verified:
+            return
+
+        user_input = input('Enter "y" to Proceed or "n" to Cancel: ').lower()
+        if user_input != 'y':
+            print("Operation cancelled GoodBye!!!")
+            return
         
+        self.folders = [self.main_folder]
+        self.number_of_scanned_folders=0
+        # print(self.folders,'||',current_folder,'||',list_of_filesNdFolders)
+        
+        for current_folder in self.folders:
+            # print(current_folder)
+            list_of_filesNdFolders = os.listdir(current_folder)
+            self.number_of_scanned_folders+=1
+            
+            for each in list_of_filesNdFolders:
+                current_path = os.path.abspath(os.path.join(current_folder, each))
+                
+                if os.path.isdir(current_path):
+                    self.addFolderToKeepLoop(current_path,each)
+                else:
+                    print(current_path)
+                    # const folder_name = this.createGroupFolder(each)
+                    # console.log(current_path)
+                    # this.moveFile(current_path,folder_name)
+                
+            
+            
+                
         """
         A public method demonstrating basic functionality.
 

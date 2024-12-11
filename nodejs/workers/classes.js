@@ -143,7 +143,7 @@ class GroupFormat {
     }
     async verifyPath(){
         
-        if (fs.existsSync(this.Basedir)) {
+        if (fs.existsSync(this.Basedir) && fs.statSync(this.Basedir).isDirectory()) {
             const resolved_path=path.resolve(this.Basedir)
             try {await fs_prom.access(resolved_path, fs_prom.constants.R_OK | fs_prom.constants.W_OK)}
             catch(e){
