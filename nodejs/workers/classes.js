@@ -7,11 +7,12 @@
 
 
 const fs = require('fs')
+const fs_prom = require('fs').promises
 const path = require('path');
 const { 
     deleteEmptyFolders,moveFileToDirectory,
     logErrors,formattedDate,input,
-    Progress,failSafeRootPath
+    Progress,failSafeRootPath,redText
     } = require("../helper")
 const folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
 
@@ -125,19 +126,35 @@ class GroupFormat {
         this.errors=[]
         this.folders=[]
         this.task_progress = new Progress()
+        this.number_of_scanned_folders=0
         this.number_of_moved_files=0
     }
-  
+    async verifyPath(){
+        
+        if (fs.existsSync(this.Basedir)) {
+            const resolved_path=path.resolve(this.Basedir)
+            try {await fs_prom.access(resolved_path, fs_prom.constants.R_OK | fs_prom.constants.W_OK)}
+            catch(e){
+                console.log("Turbo doesn't have permission to Move Files in: "+resolved_path)
+                this.updateErrorInfo(e,resolved_path)
+                return false
+            }
+            const parsed_data = path.parse(resolved_path)
+            const message = resolved_path.dir === parsed_data.root ? resolved_path+' - Warning this is in Your storage Root':resolved_path
+            console.log(`Root Folder: ${message}`)
+            return true
+        } else {
+            console.error(`${redText(this.Basedir)} does not exist.`);
+            return false
+        }
+    }
     /**
      * Starts groupFormat process
      */
     async start() {
-        if (fs.existsSync(Basedir)) {
-            console.log(`Root Folder: ${path.resolve(this.Basedir)}`)
-        } else {
-            console.error(`${redText(Basedir)} does not exist.`);
-            return "Chack path input"
-        }
+
+        const isVerified= await this.verifyPath()
+        if(!isVerified) return this.getEndLog()
 
         const user_input = await this.askToProceed("Enter \"y\" to Proceed or \"n\" to Cancel: ")
 
@@ -146,14 +163,14 @@ class GroupFormat {
         this.folders = [this.Basedir]
         let current_folder = this.folders[0]
         let list_of_filesNdFolders = fs.readdirSync(current_folder)
-        let number_of_scanned_folders=0
+        this.number_of_scanned_folders=0
         
 
         this.task_progress.start(1)
         
 
         while (this.folders.length) {
-            number_of_scanned_folders++
+            this.number_of_scanned_folders++
             for (let each of list_of_filesNdFolders) {
                 const current_path = path.resolve(path.join(current_folder, each))
                 let stats_ = undefined
@@ -192,14 +209,16 @@ class GroupFormat {
         console.log('Done !!!')
         this.errors_count && logErrors(this.errors,this.Basedir)
         
+        return this.getEndLog()
+        
+    }
+    getEndLog(){
         return {
-            "Number of scanned folders":number_of_scanned_folders,
+            "Number of scanned folders":this.number_of_scanned_folders,
             "Number of Moved Files":this.number_of_moved_files,
             'Errors':this.errors
         }
-        
     }
-    
     addFolderToKeepLoop(current_path,each){
         let not_empty = false
         try {not_empty = fs.readdirSync(current_path).length}
