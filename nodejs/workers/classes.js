@@ -156,7 +156,7 @@ class GroupFormat {
             console.log(`Root Folder: ${message}`)
             return true
         } else {
-            console.error(`${redText(this.Basedir)} does not exist.`);
+            console.error(`${redText(this.Basedir)} Folder does not exist.`);
             this.updateErrorInfo({message:this.Basedir+" Folder does not exist"},this.Basedir)
             return false
         }

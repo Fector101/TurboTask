@@ -1,5 +1,5 @@
 import argparse
-from .helper import redText,greenText,readFile,writeFile
+from .helper import Colors,readFile,writeFile
 from .workers.classes import GroupFormat, removeComments, myStrip
 import os
 
@@ -8,7 +8,7 @@ def remove_whitespace(input_css_file_path, output_file_path="TurboTask-output/no
     
     # Error Checking for when function is imported directly
     if not os.path.exists(input_css_file_path):
-        print(f'{redText(input_css_file_path)} does not exist.')
+        print(f'{Colors.red_text(input_css_file_path)} does not exist.')
         
     # Point to Another Function If Folder Path Passed In.
     if(os.path.isdir(input_css_file_path)):
@@ -30,8 +30,8 @@ def remove_whitespace(input_css_file_path, output_file_path="TurboTask-output/no
     writeFile(
         content=no_whitespaces,
         file_path=output_file_path,
-        good_msg=f"Successfully Created a File without WhiteSpace in {greenText(output_file_path)}",
-        error_msg=f"Failed to write File Output in'{redText(output_file_path)}'"
+        good_msg=f"Successfully Created a File without WhiteSpace in {Colors.green_text(output_file_path)}",
+        error_msg=f"Failed to write File Output in'{Colors.red_text(output_file_path)}'"
         )
     
 def processDirectory(input_directory, output_directory="TurboTask-output"):
@@ -78,7 +78,7 @@ def main():
         if os.path.exists(args.input_css_path):
             remove_whitespace(args.input_css_path, args.output_path)
         else:
-            print(f'{redText(args.input_css_path)} does not exist.')
+            print(f'{Colors.red_text(args.input_css_path)} does not exist.')
     if args.command == "group":
         instance=GroupFormat(args.main_folder)
         instance.start()

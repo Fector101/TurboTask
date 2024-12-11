@@ -4,14 +4,45 @@ import os
 from colorama import Fore, Style, init as coloramaInit
 coloramaInit()
 
-def greenText(text):
-    return f"{Fore.LIGHTGREEN_EX}{text}{Style.RESET_ALL}"
 
-def redText(text):
-    return f"{Fore.LIGHTRED_EX}{text}{Style.RESET_ALL}"
 
-def yellowBright(text):
-    return f"{Fore.LIGHTYELLOW_EX}{text}{Style.RESET_ALL}"
+
+class Colors:
+    """
+    A utility class for styling text with color using the colorama library.
+
+    Provides static methods to return text wrapped in ANSI escape codes for specific colors.
+    """
+    GREEN_STYLE = Fore.LIGHTGREEN_EX + "{}" + Style.RESET_ALL
+    RED_STYLE = Fore.LIGHTRED_EX + "{}" + Style.RESET_ALL
+    YELLOW_STYLE = Fore.LIGHTYELLOW_EX + "{}" + Style.RESET_ALL
+
+    @staticmethod
+    def green_text(text):
+        if not isinstance(text, str):
+            raise TypeError("The 'text' parameter must be a string.")
+        return Colors.GREEN_STYLE.format(text)
+
+    @staticmethod
+    def red_text(text):
+        if not isinstance(text, str):
+            raise TypeError("The 'text' parameter must be a string.")
+        return Colors.RED_STYLE.format(text)
+
+    @staticmethod
+    def yellow_bright(text):
+        if not isinstance(text, str):
+            raise TypeError("The 'text' parameter must be a string.")
+        return Colors.YELLOW_STYLE.format(text)
+
+# def main():
+#     """Main function for demonstrating the Color class."""
+#     print(Color.green_text("This is green text"))
+#     print(Color.red_text("This is red text"))
+#     print(Color.yellow_bright("This is bright yellow text"))
+
+
+
 
 def create_directory(path):
     try:
@@ -54,8 +85,19 @@ def failSafeRootPath(inputted_path):
     """
     new_path = inputted_path
     if inputted_path in [" ", "", '/']:
-        print(yellowBright(f"Waring use './' as Based Directory, not '{inputted_path}'"))
-        new_path = "./"
+        print(Colors.yellow_bright(f"Waring use './' as Based Directory, not '{inputted_path}'"))
+        new_path = "."
 
     return new_path
 
+
+def canReadandWritePermission(absolute_path):
+    """Checks read and write permission for File/Folder
+
+    Args:
+        absolute_path (path): Location of File/Folder
+
+    Returns:
+        boolean: Either true or false
+    """
+    return os.access(absolute_path,os.R_OK) and os.access(absolute_path,os.W_OK)

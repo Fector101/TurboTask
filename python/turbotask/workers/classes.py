@@ -1,5 +1,5 @@
-from ..helper import failSafeRootPath
-
+from ..helper import failSafeRootPath,canReadandWritePermission,Colors
+import os
 def myStrip(code:str):
     """Removes unnesseccary white space and empty selectors. (div{})"""
     new_str=''
@@ -86,7 +86,7 @@ class GroupFormat:
         attribute2 (type): Description of attribute2
     """
 
-    def __init__(self, Basedir='./'):
+    def __init__(self, main_folder='./'):
         """
         Initialize the class instance.
 
@@ -94,8 +94,7 @@ class GroupFormat:
             attribute1 (type, optional): Description. Defaults to None.
         """
         
-        self.Basedir=failSafeRootPath(Basedir)
-        print(self.Basedir)
+        self.main_folder=failSafeRootPath(main_folder)
         self.errors_count=0
         self.errors=[]
         self.folders=[]
@@ -105,8 +104,30 @@ class GroupFormat:
         
         self._private_attribute = None  # Convention for private attributes
         self.__very_private_attribute = None  # Name mangling for stronger privacy
-
+    def updateErrorInfo(self,error_obj,absolute_path):
+        ...
+    def verifyPath(self):
+        if os.path.exists(self.main_folder) and os.path.isdir(self.main_folder):
+            folder_absolute_path = os.path.abspath(self.main_folder)
+            if canReadandWritePermission(folder_absolute_path):
+                drive_absolute_path = os.path.abspath(os.sep)
+                folder_name=os.path.basename(self.main_folder)
+                message = folder_absolute_path+' - Warning this is in Your storage Root' if os.path.join(drive_absolute_path,folder_name) == os.path.abspath(self.main_folder) else folder_absolute_path
+                print(f"Root Folder: ${message}")
+                return True
+            else:
+                print("Turbo doesn't have permission to Move Files in: "+folder_absolute_path)
+                self.updateErrorInfo({},folder_absolute_path)
+                return False
+            
+        else:
+            print(f"{Colors.red_text(self.main_folder)} Folder does not exist.")
+            return False
+            
     def start(self):
+        isVerified= self.verifyPath()
+        print(isVerified)
+        
         """
         A public method demonstrating basic functionality.
 
