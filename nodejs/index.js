@@ -133,14 +133,7 @@ if (require.main === module) {
         .description('Groups Files According to Format in Separate Folders')
         .action((Basedir = './') => {
         // .action((Basedir = './', format='') => {
-
-            Basedir = failSafeRootPath(Basedir)
-
-            if (fs.existsSync(Basedir)) {
-                group(Basedir)
-            } else {
-                console.error(`${redText(Basedir)} does not exist.`);
-            }
+            group(Basedir)
         });
 
     // Parse the command-line arguments
