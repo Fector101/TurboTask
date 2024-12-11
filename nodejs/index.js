@@ -109,10 +109,10 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
  *   Errors: []
  * }
  * ```
- * @param {string} [Basedir='./'] - Path To start the Scan
+ * @param {string} [Basedir='.'] - Path To start the Scan
  * @returns {object} Object of Number of scanned Folders, Moved Files And Object of Errors if any
  */
-function group(Basedir= './'){
+function group(Basedir= '.'){
     const instance_ = new GroupFormat(Basedir)
     return instance_.start()
 }
@@ -143,7 +143,7 @@ if (require.main === module) {
     // program.command('group [Basedir] [format]')
     program.command('group [Basedir]')
         .description('Groups Files According to Format in Separate Folders')
-        .action((Basedir = './') => {
+        .action((Basedir = '.') => {
         // .action((Basedir = './', format='') => {
             group(Basedir)
         });

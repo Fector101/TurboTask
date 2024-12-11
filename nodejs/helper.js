@@ -223,16 +223,17 @@ class Progress {
 	}
 	// stop the bar
 }
+
 /**
- * 
+ * Returns right format for root path or inputted path
  * @param {string} inputted_path - Unformatted path from user
  * @returns {string} Right Format of Root path or inputted path
  */
 function failSafeRootPath(inputted_path) {
 	let new_path = inputted_path
 	if ([" ", "", '/'].includes(inputted_path)) {
-		console.log(colors.yellowBright(`Waring use './' as Based Directory, not '${inputted_path}'`))
-		new_path = "./"
+		console.log(colors.yellowBright(`Waring use '.' as Based Directory, not '${inputted_path}'`))
+		new_path = path.resolve(".")
 	}
 	return new_path
 }
