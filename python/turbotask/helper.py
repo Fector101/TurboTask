@@ -111,18 +111,54 @@ def isFolderEmpty(folder_path):
         return False
     
     
+import os
+import shutil
+from typing import Union
 
-def move_file_to_directory(src, dest_dir):
+def moveFile(
+    src: Union[str, os.PathLike], 
+    dest_dir: Union[str, os.PathLike]
+) -> str:
+    """
+    Move a file to a destination directory, handling name conflicts.
+    
+    Args:
+        src: Source file path
+        dest_dir: Destination directory path
+    
+    Returns:
+        The final path of the moved file
+    
+    Raises:
+        FileNotFoundError: If source file does not exist
+        PermissionError: If there are permission issues
+    """
+    # Validate inputs
+    if not os.path.exists(src):
+        raise FileNotFoundError(f"Source file not found: {src}")
+    
+    if not os.path.isdir(dest_dir):
+        raise NotADirectoryError(f"Destination is not a directory: {dest_dir}")
+    
+    # Get the original file name
     file_name = os.path.basename(src)
     dest = os.path.join(dest_dir, file_name)
-
-    # Check if the file already exists in the destination directory
+    
+    # Handle existing files by adding a counter
     counter = 1
     while os.path.exists(dest):
-        extname = os.path.splitext(file_name)[1]  # Get the file extension
-        basename = os.path.splitext(file_name)[0]  # Get the base name without extension
+        # Split the filename and extension
+        extname = os.path.splitext(file_name)[1]
+        basename = os.path.splitext(file_name)[0]
+        
+        # Create a new filename with a counter
         new_file_name = f"{basename} ({counter}){extname}"
         dest = os.path.join(dest_dir, new_file_name)
         counter += 1
-    shutil.move(src, dest)
     
+    # Move the file
+    try:
+        shutil.move(src, dest)
+        return dest
+    except PermissionError:
+        raise PermissionError(f"Permission denied when moving {src} to {dest}")
