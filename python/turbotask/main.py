@@ -1,6 +1,6 @@
 import argparse
 from .helper import redText,greenText,readFile,writeFile
-from .workers.basic import removeComments, myStrip
+from .workers.classes import removeComments, myStrip
 import os
 
 

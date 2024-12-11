@@ -70,3 +70,86 @@ def removeComments(code:str):
         return ''
     else:
         return new_str
+
+
+import typing
+from dataclasses import dataclass, field
+
+class MyClass:
+    """
+    A template class demonstrating key Python class features.
+
+    Attributes:
+        attribute1 (type): Description of attribute1
+        attribute2 (type): Description of attribute2
+    """
+
+    def __init__(self, attribute1=None, attribute2=None):
+        """
+        Initialize the class instance.
+
+        Args:
+            attribute1 (type, optional): Description. Defaults to None.
+            attribute2 (type, optional): Description. Defaults to None.
+        """
+        self.attribute1 = attribute1
+        self.attribute2 = attribute2
+        self._private_attribute = None  # Convention for private attributes
+        self.__very_private_attribute = None  # Name mangling for stronger privacy
+
+    def public_method(self, param1):
+        """
+        A public method demonstrating basic functionality.
+
+        Args:
+            param1 (type): Description of parameter
+
+        Returns:
+            type: Description of return value
+        """
+        # Method implementation
+        return None
+
+    def _protected_method(self):
+        """
+        A protected method (by convention, not strictly enforced).
+        """
+        pass
+
+    @classmethod
+    def class_method(cls, parameter):
+        """
+        A class method that can access and modify class state.
+
+        Args:
+            parameter (type): Description of parameter
+
+        Returns:
+            type: Description of return value
+        """
+        return None
+
+    @staticmethod
+    def static_method():
+        """
+        A static method that doesn't access instance or class state.
+        """
+        pass
+
+    def __str__(self):
+        """
+        String representation of the object.
+
+        Returns:
+            str: A string describing the object
+        """
+        return f"MyClass(attribute1={self.attribute1}, attribute2={self.attribute2})"
+
+    def __repr__(self):
+        """
+        Detailed string representation for debugging.
+
+        Returns:
+            str: A detailed string representation
+        """
+        return f"MyClass(attribute1={repr(self.attribute1)}, attribute2={repr(self.attribute2)})"
