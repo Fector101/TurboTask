@@ -128,7 +128,7 @@ function removeComments(code) {
  *  'Number of Moved Files': 467,
  *   Errors: []
  * }
- * @param {string} [Basedir='./'] - Path To start the Scan
+ * @param {string} [Basedir='./'] - Folder To start the Scan
  * @returns {object} Object of Number of scanned Folders | And Object of Errors if any
  */
 class GroupFormat {

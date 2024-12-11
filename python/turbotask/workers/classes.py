@@ -1,4 +1,4 @@
-from ..helper import failSafeRootPath,canReadandWritePermission,Colors,isFolderEmpty, moveFile
+from ..helper import delEmptyAll, failSafeRootPath,canReadandWritePermission,Colors,isFolderEmpty, moveFileToDirectory
 import os
 def myStrip(code:str):
     """Removes unnesseccary white space and empty selectors. (div{})"""
@@ -80,11 +80,10 @@ folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
 
 class GroupFormat:
     """
-    A template class demonstrating key Python class features.
+    Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir.
 
-    Attributes:
-        attribute1 (type): Description of attribute1
-        attribute2 (type): Description of attribute2
+    Attribute:
+        main_folder (path): Folder To start the Scan
     """
 
     def __init__(self, main_folder='./'):
@@ -92,7 +91,7 @@ class GroupFormat:
         Initialize the class instance.
 
         Args:
-            attribute1 (type, optional): Description. Defaults to None.
+            main_folder (string, optional): Folder To start the Scan. Defaults to Folder command been ran from.
         """
         
         self.main_folder=failSafeRootPath(main_folder)
@@ -103,8 +102,8 @@ class GroupFormat:
         self.number_of_scanned_folders=0
         self.number_of_moved_files=0
         
-        self._private_attribute = None  # Convention for private attributes
-        self.__very_private_attribute = None  # Name mangling for stronger privacy
+        # self._private_attribute = None  # Convention for private attributes
+        # self.__very_private_attribute = None  # Name mangling for stronger privacy
     def updateErrorInfo(self,error_obj,absolute_path):
         ...
     def getEndLog(self):
@@ -155,13 +154,21 @@ class GroupFormat:
             os.mkdir(folder_name)
         
         return folder_name
-    
+    def moveFile(self,current_path,folder_name):
+        extension_name=os.path.splitext(current_path)[1]
+        current_folder_name=os.path.basename(os.path.dirname(current_path))
+        if f"group {extension_name}".strip() != current_folder_name: # Checking if currrent folder is right folder to be
+            moveFileToDirectory(current_path, folder_name)
+            print(current_path,'-->',folder_name)
+            self.number_of_moved_files+=1
+
     def start(self):
         verified= self.verifyPath()
         if not verified:
             return
 
         user_input = input('Enter "y" to Proceed or "n" to Cancel: ').lower()
+        print("Try not to move any file manual during this Operation...")
         if user_input != 'y':
             print("Operation cancelled GoodBye!!!")
             return
@@ -182,51 +189,52 @@ class GroupFormat:
                     self.addFolderToKeepLoop(current_path,each)
                 else:
                     folder_name = self.createGroupFolder(each)
-                    print(current_path)
-                    # moveFile(current_path,folder_name)
-            
-    def _protected_method(self):
-        """
-        A protected method (by convention, not strictly enforced).
-        """
-        pass
+                    # print(current_path)
+                    self.moveFile(current_path,folder_name)
+        print('Done!!!')
+        delEmptyAll(self.main_folder)
+    # def _protected_method(self):
+    #     """
+    #     A protected method (by convention, not strictly enforced).
+    #     """
+    #     pass
 
-    @classmethod
-    def class_method(cls, parameter):
-        """
-        A class method that can access and modify class state.
+    # @classmethod
+    # def class_method(cls, parameter):
+    #     """
+    #     A class method that can access and modify class state.
 
-        Args:
-            parameter (type): Description of parameter
+    #     Args:
+    #         parameter (type): Description of parameter
 
-        Returns:
-            type: Description of return value
-        """
-        return None
+    #     Returns:
+    #         type: Description of return value
+    #     """
+    #     return None
 
-    @staticmethod
-    def static_method():
-        """
-        A static method that doesn't access instance or class state.
-        """
-        pass
+    # @staticmethod
+    # def static_method():
+    #     """
+    #     A static method that doesn't access instance or class state.
+    #     """
+    #     pass
 
-    def __str__(self):
-        """
-        String representation of the object.
+    # def __str__(self):
+    #     """
+    #     String representation of the object.
 
-        Returns:
-            str: A string describing the object
-        """
-        return f"MyClass(attribute1={self.attribute1}, attribute2={self.attribute2})"
+    #     Returns:
+    #         str: A string describing the object
+    #     """
+    #     return f"MyClass(attribute1={self.attribute1}, attribute2={self.attribute2})"
 
-    def __repr__(self):
-        """
-        Detailed string representation for debugging.
+    # def __repr__(self):
+    #     """
+    #     Detailed string representation for debugging.
 
-        Returns:
-            str: A detailed string representation
-        """
-        return f"MyClass(attribute1={repr(self.attribute1)}, attribute2={repr(self.attribute2)})"
+    #     Returns:
+    #         str: A detailed string representation
+    #     """
+    #     return f"MyClass(attribute1={repr(self.attribute1)}, attribute2={repr(self.attribute2)})"
     
     

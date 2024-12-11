@@ -10,6 +10,11 @@
 ## 🚀 Features
 
 ### Current Capabilities
+
+- **File Grouping**
+  - Automatically organize files by file type
+  - Handle nested directory processing
+
 - **CSS Processing**
   - Minification by removing comments and whitespace
   - Single file or bulk directory processing
@@ -17,22 +22,18 @@
   - Built-in validation checks
   - Custom output path configuration
 
-### Roadmap
-- [ ] Automatic file type grouping
-- [ ] Media file duration analysis
-- [ ] Extended file processing capabilities
-- [ ] Batch processing optimization
-
 ## 📦 Installation
 
 **Prerequisites**: Python 3.6 or higher
 
 ### Via pip (Recommended)
+
 ```bash
 pip install TurboTask
 ```
 
 ### From Source
+
 ```bash
 # Clone the repository
 git clone https://github.com/Fector101/TurboTask.git
@@ -50,19 +51,42 @@ pip install .
 
 ## 🔨 Usage Guide
 
+### File Grouping
+
+```bash
+turbotask group [optional_main_path]
+```
+
+The argument:
+
+1. [optional_main_path] The main Folder the code will start the scan from (default is './' the folder the code is being ran from).
+
+**Examples:**
+
+```bash
+# Group files in current directory
+TurboTask group
+
+# Group files in specific directory
+TurboTask group "C:/Users/Bob/Downloads"
+```
+
 ### CSS Processing Commands
 
 #### Remove Whitespace and Comments
+
 ```bash
 TurboTask noWhiteSpace <input-css-file> [output-file]
 ```
 
 **Arguments:**
+
 - `input-css-file`: Path to source CSS file
 - `output-file`: (Optional) Destination path for processed file
-  - Defaults to `./TurboTask-output/[original-filename]`
+- Defaults to `./TurboTask-output/[original-filename]`
 
 **Examples:**
+
 ```bash
 # Basic usage
 TurboTask noWhiteSpace styles.css
@@ -82,9 +106,15 @@ We appreciate contributions! Here's how you can help:
 5. Open a Pull Request
 
 Please ensure your PR:
+
 - Includes a clear description of the changes
 - Updates relevant documentation
 - Adds tests if applicable
+
+
+## 🐛 Reporting Issues
+
+Found a bug? Please open an issue on our [GitHub Issues](https://github.com/Fector101/TurboTask/issues) page.
 
 ## ☕ Support the Project
 
@@ -106,6 +136,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Author
 
 **Fabian**
+
 - Email: fector101@yahoo.com
 - GitHub: [@Fector101](https://github.com/Fector101/TurboTask)
 

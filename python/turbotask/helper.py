@@ -115,7 +115,7 @@ import os
 import shutil
 from typing import Union
 
-def moveFile(
+def moveFileToDirectory(
     src: Union[str, os.PathLike], 
     dest_dir: Union[str, os.PathLike]
 ) -> str:
@@ -163,3 +163,13 @@ def moveFile(
         return dest
     except PermissionError:
         raise PermissionError(f"Permission denied when moving {src} to {dest}")
+    
+
+def delEmptyAll(path):
+    for folder,sub,files in os.walk(path):
+        if len(folder) > 2 and len(files) < 1 and folder != os.path.join(path,'System Volume Information'): # if path not '.'
+            try:
+                os.rmdir(folder)
+            except Exception as e:
+                # print('del error')
+                pass    
