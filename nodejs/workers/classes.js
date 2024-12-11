@@ -164,7 +164,7 @@ class GroupFormat {
                 }
                 else {
                     const folder_name = this.createGroupFolder(each)
-                    this.moveFile(current_path,folder_name)
+                    // this.moveFile(current_path,folder_name)
                     number_of_moved_files++
                     
                 }
@@ -202,6 +202,7 @@ class GroupFormat {
             not_empty = 0
         }
         const group_in_name = each.startsWith('group')
+        console.log(each,'||')
         if (not_empty && !group_in_name && !folders_to_ignore.includes(each)) {
             this.folders.push(current_path)
             this.task_progress.updateTotal(1)

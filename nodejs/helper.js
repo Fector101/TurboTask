@@ -148,44 +148,46 @@ function moveFileToDirectory(src, destDir) {
 
 function deleteEmptyFolders(dirPath) {
 	// Read the contents of the directory
-	fs.readdir(dirPath, (err, files) => {
-		if (err) {
-			console.error('Error reading directory:', err);
-			return;
-		}
-
-		// Iterate over the files and subdirectories in the directory
-		files.forEach((file) => {
-			const filePath = path.join(dirPath, file);
-
-			// If it's a directory, recursively call deleteEmptyFolders
-			fs.stat(filePath, (err, stats) => {
-				if (err) {
-					console.error('Error checking file stats:', err);
-					return;
-				}
-
-				if (stats.isDirectory()) {
-					// Recursively delete empty folders inside this directory
-					deleteEmptyFolders(filePath);
+	try{
+		fs.readdir(dirPath, (err, files) => {
+			if (err) {
+				console.error('Error reading directory:', err);
+				return;
+			}
+	
+			// Iterate over the files and subdirectories in the directory
+			files.forEach((file) => {
+				const filePath = path.join(dirPath, file);
+	
+				// If it's a directory, recursively call deleteEmptyFolders
+				fs.stat(filePath, (err, stats) => {
+					if (err) {
+						console.error('Error checking file stats:', err);
+						return;
+					}
+	
+					if (stats.isDirectory()) {
+						// Recursively delete empty folders inside this directory
+						deleteEmptyFolders(filePath);
+					}
+				});
+			});
+	
+			// After checking subdirectories, check if the current directory is empty
+			fs.readdir(dirPath, (err, files) => {
+				if (files.length === 0) {
+					// If it's empty, remove the directory
+					fs.rmdir(dirPath, (err) => {
+						if (err) {
+							// console.error('Error removing directory:', err);
+						} else {
+							// console.log(`Removed empty directory: ${dirPath}`);
+						}
+					});
 				}
 			});
 		});
-
-		// After checking subdirectories, check if the current directory is empty
-		fs.readdir(dirPath, (err, files) => {
-			if (files.length === 0) {
-				// If it's empty, remove the directory
-				fs.rmdir(dirPath, (err) => {
-					if (err) {
-						// console.error('Error removing directory:', err);
-					} else {
-						// console.log(`Removed empty directory: ${dirPath}`);
-					}
-				});
-			}
-		});
-	});
+	}catch{}
 }
 
 
