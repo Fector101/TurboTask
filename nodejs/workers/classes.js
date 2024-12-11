@@ -190,6 +190,9 @@ class GroupFormat {
                 const current_path = path.resolve(path.join(current_folder, each))
                 let stats_ = undefined
                 
+                if(!fs.existsSync(current_path)){
+                    continue
+                }
                 try{stats_ = fs.statSync(current_path)}
                 catch(err){ // Error would be because file/folder was moved or permission error
                     this.updateErrorInfo(err,current_path)

@@ -1,4 +1,4 @@
-from ..helper import failSafeRootPath,canReadandWritePermission,Colors,isFolderEmpty
+from ..helper import failSafeRootPath,canReadandWritePermission,Colors,isFolderEmpty, moveFile
 import os
 def myStrip(code:str):
     """Removes unnesseccary white space and empty selectors. (div{})"""
@@ -139,13 +139,23 @@ class GroupFormat:
             print(f"{Colors.red_text(self.main_folder)} Folder does not exist.")
             self.updateErrorInfo({message:self.main_folder+" Folder does not exist"},self.main_folder)
             return False
+        
+        
     def addFolderToKeepLoop(self,current_path,folder_name):
         folder_not_empty = not isFolderEmpty(current_path)
 
         if folder_not_empty and folder_name not in folders_to_ignore:
             self.folders.append(current_path)
             # self.task_progress.updateTotal(1)
-            
+    
+    def createGroupFolder(self,each):
+        folder_name = os.path.join(self.main_folder,f"group {os.path.splitext(each)[1]}".strip())
+        if not os.path.exists(folder_name):
+            print(folder_name,'created')
+            os.mkdir(folder_name)
+        
+        return folder_name
+    
     def start(self):
         verified= self.verifyPath()
         if not verified:
@@ -171,26 +181,10 @@ class GroupFormat:
                 if os.path.isdir(current_path):
                     self.addFolderToKeepLoop(current_path,each)
                 else:
+                    folder_name = self.createGroupFolder(each)
                     print(current_path)
-                    # const folder_name = this.createGroupFolder(each)
-                    # console.log(current_path)
-                    # this.moveFile(current_path,folder_name)
-                
+                    # moveFile(current_path,folder_name)
             
-            
-                
-        """
-        A public method demonstrating basic functionality.
-
-        Args:
-            param1 (type): Description of parameter
-
-        Returns:
-            type: Description of return value
-        """
-        # Method implementation
-        return None
-
     def _protected_method(self):
         """
         A protected method (by convention, not strictly enforced).

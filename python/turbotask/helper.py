@@ -148,8 +148,9 @@ def moveFile(
     counter = 1
     while os.path.exists(dest):
         # Split the filename and extension
-        extname = os.path.splitext(file_name)[1]
-        basename = os.path.splitext(file_name)[0]
+        filename_and_extension=os.path.splitext(file_name)
+        extname = filename_and_extension[1]
+        basename = filename_and_extension[0]
         
         # Create a new filename with a counter
         new_file_name = f"{basename} ({counter}){extname}"
