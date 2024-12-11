@@ -7,7 +7,7 @@
 
 
 const fs = require('fs')
-const fs_prom = require('fs').promises
+const fs_prom = fs.promises
 const path = require('path');
 const { 
     deleteEmptyFolders,moveFileToDirectory,
@@ -116,6 +116,18 @@ function removeComments(code) {
 
 /**
  * Recursively proccess a directory and Moves each format to a certain folder in base Directory or given dir
+ * ```js
+ * const instance_ = new GroupFormat(Basedir)
+ * instance_.start().then(operation_details => console.log(operation_details) ) 
+ * ```
+ * The resulting output will resemble:
+ *
+ * ```console
+ * {
+ *  'Number of scanned folders': 100,
+ *  'Number of Moved Files': 467,
+ *   Errors: []
+ * }
  * @param {string} [Basedir='./'] - Path To start the Scan
  * @returns {object} Object of Number of scanned Folders | And Object of Errors if any
  */
@@ -286,7 +298,7 @@ class GroupFormat {
             const current_folder_name=path.dirname(current_path)
             // (current_folder_name,extension_name)
             // (not__user_script_path  ,'&&',  !current_folder_name.endsWith(extension_name))
-            if(not__user_script_path  &&  !current_folder_name.endsWith(extension_name)){
+            if(not__user_script_path  &&  !current_folder_name.includes(`group ${extension_name}`.trim())){
                 moveFileToDirectory(current_path, folder_name);
                 this.number_of_moved_files++
             }
