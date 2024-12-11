@@ -11,7 +11,7 @@ const path = require('path');
 const { 
     deleteEmptyFolders,moveFileToDirectory,
     logErrors,formattedDate,input,
-    Progress  
+    Progress,failSafeRootPath
     } = require("../helper")
 const folders_to_ignore = ['node_modules', '.git','venv','myvenv','env']
 
@@ -120,18 +120,24 @@ function removeComments(code) {
  */
 class GroupFormat {
     constructor(Basedir= './') {
-        this.Basedir=Basedir
+        this.Basedir=failSafeRootPath(Basedir)
         this.errors_count=0
         this.errors=[]
         this.folders=[]
         this.task_progress = new Progress()
+        this.number_of_moved_files=0
     }
   
     /**
      * Starts groupFormat process
      */
     async start() {
-        console.log(`Root Folder: ${path.resolve(this.Basedir)}`)
+        if (fs.existsSync(Basedir)) {
+            console.log(`Root Folder: ${path.resolve(this.Basedir)}`)
+        } else {
+            console.error(`${redText(Basedir)} does not exist.`);
+            return "Chack path input"
+        }
 
         const user_input = await this.askToProceed("Enter \"y\" to Proceed or \"n\" to Cancel: ")
 
@@ -141,7 +147,7 @@ class GroupFormat {
         let current_folder = this.folders[0]
         let list_of_filesNdFolders = fs.readdirSync(current_folder)
         let number_of_scanned_folders=0
-        let number_of_moved_files=0
+        
 
         this.task_progress.start(1)
         
@@ -149,7 +155,6 @@ class GroupFormat {
         while (this.folders.length) {
             number_of_scanned_folders++
             for (let each of list_of_filesNdFolders) {
-            
                 const current_path = path.resolve(path.join(current_folder, each))
                 let stats_ = undefined
                 
@@ -164,8 +169,8 @@ class GroupFormat {
                 }
                 else {
                     const folder_name = this.createGroupFolder(each)
+                    // console.log(current_path)
                     // this.moveFile(current_path,folder_name)
-                    number_of_moved_files++
                     
                 }
             }
@@ -189,11 +194,12 @@ class GroupFormat {
         
         return {
             "Number of scanned folders":number_of_scanned_folders,
-            "Number of Moved Files":number_of_moved_files,
+            "Number of Moved Files":this.number_of_moved_files,
             'Errors':this.errors
         }
         
     }
+    
     addFolderToKeepLoop(current_path,each){
         let not_empty = false
         try {not_empty = fs.readdirSync(current_path).length}
@@ -202,7 +208,6 @@ class GroupFormat {
             not_empty = 0
         }
         const group_in_name = each.startsWith('group')
-        console.log(each,'||')
         if (not_empty && !group_in_name && !folders_to_ignore.includes(each)) {
             this.folders.push(current_path)
             this.task_progress.updateTotal(1)
@@ -260,7 +265,9 @@ class GroupFormat {
             const user_script_path=process.argv[1]
             if(user_script_path !== current_path){
                 moveFileToDirectory(current_path, folder_name);
+                this.number_of_moved_files++
             }
+
         }
         catch (err) { 
             this.updateErrorInfo(err,current_path)   // TODO await function in helper.js and throw error
