@@ -100,6 +100,15 @@ function processDirectory(inputDir, outputDir = 'TurboTask-output') {
  * const {group} = require('turbotask')
  * group().then(operation_details=>console.log(operation_details)) 
  * ```
+ * The resulting output will resemble:
+ *
+ * ```console
+ * {
+ *  'Number of scanned folders': 100,
+ *  'Number of Moved Files': 467,
+ *   Errors: []
+ * }
+ * ```
  * @param {string} [Basedir='./'] - Path To start the Scan
  * @returns {object} Object of Number of scanned Folders, Moved Files And Object of Errors if any
  */

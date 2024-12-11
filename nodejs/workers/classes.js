@@ -145,6 +145,7 @@ class GroupFormat {
             return true
         } else {
             console.error(`${redText(this.Basedir)} does not exist.`);
+            this.updateErrorInfo({message:this.Basedir+" Folder does not exist"},this.Basedir)
             return false
         }
     }
@@ -158,7 +159,7 @@ class GroupFormat {
 
         const user_input = await this.askToProceed("Enter \"y\" to Proceed or \"n\" to Cancel: ")
 
-        if(user_input !== 'y') return "GoodBye!!!"
+        if(user_input !== 'y') return "Operation cancelled GoodBye!!!"
 
         this.folders = [this.Basedir]
         let current_folder = this.folders[0]
@@ -187,7 +188,7 @@ class GroupFormat {
                 else {
                     const folder_name = this.createGroupFolder(each)
                     // console.log(current_path)
-                    // this.moveFile(current_path,folder_name)
+                    this.moveFile(current_path,folder_name)
                     
                 }
             }
@@ -226,8 +227,7 @@ class GroupFormat {
             this.updateErrorInfo(err,current_path)
             not_empty = 0
         }
-        const group_in_name = each.startsWith('group')
-        if (not_empty && !group_in_name && !folders_to_ignore.includes(each)) {
+        if (not_empty && !folders_to_ignore.includes(each)) {
             this.folders.push(current_path)
             this.task_progress.updateTotal(1)
         }
@@ -266,7 +266,7 @@ class GroupFormat {
     * @returns {string} Folder Name
     */
     createGroupFolder(each){
-        const folder_name = path.join(this.Basedir,`group ${each.slice(each.lastIndexOf('.'))}`.trim())
+        const folder_name = path.join(this.Basedir,`group ${path.extname(each)}`.trim())
         if (!fs.existsSync(folder_name)) {
             fs.mkdirSync(folder_name)
         }
@@ -281,8 +281,12 @@ class GroupFormat {
     moveFile(current_path,folder_name){
         try {
             // Fail safe from then package is required and not ran from terminal
-            const user_script_path=process.argv[1]
-            if(user_script_path !== current_path){
+            const not__user_script_path=process.argv[1] !== current_path
+            const extension_name=path.extname(current_path)
+            const current_folder_name=path.dirname(current_path)
+            // (current_folder_name,extension_name)
+            // (not__user_script_path  ,'&&',  !current_folder_name.endsWith(extension_name))
+            if(not__user_script_path  &&  !current_folder_name.endsWith(extension_name)){
                 moveFileToDirectory(current_path, folder_name);
                 this.number_of_moved_files++
             }

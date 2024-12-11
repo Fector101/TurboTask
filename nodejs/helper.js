@@ -175,7 +175,7 @@ function deleteEmptyFolders(dirPath) {
 	
 			// After checking subdirectories, check if the current directory is empty
 			fs.readdir(dirPath, (err, files) => {
-				if (files.length === 0) {
+				if (files && files.length === 0) {
 					// If it's empty, remove the directory
 					fs.rmdir(dirPath, (err) => {
 						if (err) {

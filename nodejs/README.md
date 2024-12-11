@@ -82,6 +82,13 @@ const {group} = require("turbotask")
 // Groups are files in downloads folder
 group('C:/Users/Bob/Downloads')
   .then(details=>console.log(details))
+// The resulting output will resemble:
+// {
+//  'Number of scanned folders': 100,
+//  'Number of Moved Files': 467,
+//   Errors: []
+// }
+
 // Groups are files in current file directory
 group('./')
 ```
