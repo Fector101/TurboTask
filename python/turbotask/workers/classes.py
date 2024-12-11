@@ -1,3 +1,5 @@
+from ..helper import failSafeRootPath
+
 def myStrip(code:str):
     """Removes unnesseccary white space and empty selectors. (div{})"""
     new_str=''
@@ -75,7 +77,7 @@ def removeComments(code:str):
 import typing
 from dataclasses import dataclass, field
 
-class MyClass:
+class GroupFormat:
     """
     A template class demonstrating key Python class features.
 
@@ -84,20 +86,27 @@ class MyClass:
         attribute2 (type): Description of attribute2
     """
 
-    def __init__(self, attribute1=None, attribute2=None):
+    def __init__(self, Basedir='./'):
         """
         Initialize the class instance.
 
         Args:
             attribute1 (type, optional): Description. Defaults to None.
-            attribute2 (type, optional): Description. Defaults to None.
         """
-        self.attribute1 = attribute1
-        self.attribute2 = attribute2
+        
+        self.Basedir=failSafeRootPath(Basedir)
+        print(self.Basedir)
+        self.errors_count=0
+        self.errors=[]
+        self.folders=[]
+        # self.task_progress = new Progress()
+        self.number_of_scanned_folders=0
+        self.number_of_moved_files=0
+        
         self._private_attribute = None  # Convention for private attributes
         self.__very_private_attribute = None  # Name mangling for stronger privacy
 
-    def public_method(self, param1):
+    def start(self):
         """
         A public method demonstrating basic functionality.
 
@@ -153,3 +162,5 @@ class MyClass:
             str: A detailed string representation
         """
         return f"MyClass(attribute1={repr(self.attribute1)}, attribute2={repr(self.attribute2)})"
+    
+    

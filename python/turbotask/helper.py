@@ -10,6 +10,9 @@ def greenText(text):
 def redText(text):
     return f"{Fore.LIGHTRED_EX}{text}{Style.RESET_ALL}"
 
+def yellowBright(text):
+    return f"{Fore.LIGHTYELLOW_EX}{text}{Style.RESET_ALL}"
+
 def create_directory(path):
     try:
         os.makedirs(path, exist_ok=True)
@@ -39,3 +42,20 @@ def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_m
         print(good_msg)
     except Exception as e:
         print(error_msg)
+
+def failSafeRootPath(inputted_path):
+    """Returns right format for root path or inputted path
+
+    Args:
+        inputted_path (string): Unformatted path from user
+
+    Returns:
+        string: Right Format of Root path or inputted path
+    """
+    new_path = inputted_path
+    if inputted_path in [" ", "", '/']:
+        print(yellowBright(f"Waring use './' as Based Directory, not '{inputted_path}'"))
+        new_path = "./"
+
+    return new_path
+

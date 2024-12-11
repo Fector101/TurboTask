@@ -1,6 +1,6 @@
 import argparse
 from .helper import redText,greenText,readFile,writeFile
-from .workers.classes import removeComments, myStrip
+from .workers.classes import GroupFormat, removeComments, myStrip
 import os
 
 
@@ -65,6 +65,10 @@ def main():
     remove_whitespace_parser = subparsers.add_parser("noWhiteSpace", help="Removes all whitespace in CSS File or All CSS Files in Given Dir")
     remove_whitespace_parser.add_argument("input_css_path", help="The Input CSS File or Folder Path argument")
     
+    
+    group_whitespace_parser = subparsers.add_parser("group", help="Recursively proccess a directory and Moves each format to a certain folder in main Directory or given dir")
+    group_whitespace_parser.add_argument("main_folder", nargs="?", default="./", help="Path To start the Scan")
+    
     # Optional argument for the output folder (default is 'TurboTask-output')
     remove_whitespace_parser.add_argument("output_path", nargs="?", default="TurboTask-output", help="The optional Output File Path argument. Default is 'TurboTask-output")
     
@@ -75,6 +79,9 @@ def main():
             remove_whitespace(args.input_css_path, args.output_path)
         else:
             print(f'{redText(args.input_css_path)} does not exist.')
+    if args.command == "group":
+        instance=GroupFormat(args.main_folder)
+        instance.start()
 
 if __name__ == "__main__":
     main()

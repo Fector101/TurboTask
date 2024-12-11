@@ -132,7 +132,7 @@ function removeComments(code) {
  * @returns {object} Object of Number of scanned Folders | And Object of Errors if any
  */
 class GroupFormat {
-    constructor(Basedir= './') {
+    constructor(Basedir= '.') {
         this.Basedir=failSafeRootPath(Basedir)
         this.errors_count=0
         this.errors=[]
@@ -171,7 +171,9 @@ class GroupFormat {
 
         const user_input = await this.askToProceed("Enter \"y\" to Proceed or \"n\" to Cancel: ")
 
-        if(user_input !== 'y') return "Operation cancelled GoodBye!!!"
+        if(user_input !== 'y'){
+            console.log("Operation cancelled GoodBye!!!")
+            return "Operation cancelled GoodBye!!!"}
 
         this.folders = [this.Basedir]
         let current_folder = this.folders[0]
