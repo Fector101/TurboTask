@@ -30,7 +30,7 @@ def remove_whitespace(input_css_file_path, output_file_path="TurboTask-output/no
     writeFile(
         content=no_whitespaces,
         file_path=output_file_path,
-        good_msg=f"Successfully Created a File without WhiteSpace in {Colors.green_text(output_file_path)}",
+        good_msg="",
         error_msg=f"Failed to write File Output in'{Colors.red_text(output_file_path)}'"
         )
     

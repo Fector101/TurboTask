@@ -50,7 +50,7 @@ function noWhiteSpace(inputFilePath, outputFilePath) {
     writeFile(
         cssContent,
         outputFilePath,
-        `Successfully Created a File without WhiteSpace in ${greenText(outputFilePath)}`,
+        ``,
         `Failed to write File Output in '${redText(outputFilePath)}'`
     );
 }
