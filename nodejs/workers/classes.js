@@ -175,34 +175,32 @@ class GroupFormat {
             console.log("Operation cancelled GoodBye!!!")
             return "Operation cancelled GoodBye!!!"}
 
+        this.task_progress.start(1)
+
         this.folders = [this.Basedir]
-        let current_folder = this.folders[0]
-        let list_of_filesNdFolders = fs.readdirSync(current_folder)
         this.number_of_scanned_folders=0
         
-
-        this.task_progress.start(1)
-        
-
-        while (this.folders.length) {
+        for (let i = 0; i < this.folders.length; i++) {
             this.number_of_scanned_folders++
+            const current_folder = this.folders[i]
+            const list_of_filesNdFolders = fs.existsSync(current_folder)?fs.readdirSync(current_folder):[]
+            
             for (let each of list_of_filesNdFolders) {
+                
                 const current_path = path.resolve(path.join(current_folder, each))
                 let stats_ = undefined
                 
-                if(!fs.existsSync(current_path)){
-                    continue
-                }
-                try{stats_ = fs.statSync(current_path)}
+                // console.log(fs.existsSync(current_path),'--->',current_path)
+                try{stats_ = fs.existsSync(current_path) && fs.statSync(current_path)}
                 catch(err){ // Error would be because file/folder was moved or permission error
                     this.updateErrorInfo(err,current_path)
                     continue
                 }
                 
-                if (stats_.isDirectory()) {
+                if (stats_ && stats_.isDirectory()) {
                     this.addFolderToKeepLoop(current_path,each)
                 }
-                else {
+                else if(stats_) {
                     const folder_name = this.createGroupFolder(each)
                     // console.log(current_path)
                     this.moveFile(current_path,folder_name)
@@ -211,17 +209,9 @@ class GroupFormat {
             }
     
             deleteEmptyFolders(current_folder)
-    
-            this.folders.shift()
-            current_folder = this.folders[0]
-    
-            if(current_folder){
-                this.task_progress.increment()
-                list_of_filesNdFolders = fs.readdirSync(current_folder)
-            }
+            this.task_progress.increment()
     
         }
-        this.task_progress.increment()
         deleteEmptyFolders(this.Basedir)
         this.task_progress.stop()
         console.log('Done !!!')
