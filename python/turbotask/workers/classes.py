@@ -150,7 +150,7 @@ class GroupFormat:
     def createGroupFolder(self,each):
         folder_name = os.path.join(self.main_folder,f"group {os.path.splitext(each)[1]}".strip())
         if not os.path.exists(folder_name):
-            print(folder_name,'created')
+            # print(folder_name,'created')
             os.mkdir(folder_name)
         
         return folder_name
@@ -159,7 +159,7 @@ class GroupFormat:
         current_folder_name=os.path.basename(os.path.dirname(current_path))
         if f"group {extension_name}".strip() != current_folder_name: # Checking if currrent folder is right folder to be
             moveFileToDirectory(current_path, folder_name)
-            print(current_path,'-->',folder_name)
+            # print(current_path,'-->',folder_name)
             self.number_of_moved_files+=1
 
     def start(self):

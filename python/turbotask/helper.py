@@ -135,10 +135,12 @@ def moveFileToDirectory(
     """
     # Validate inputs
     if not os.path.exists(src):
-        raise FileNotFoundError(f"Source file not found: {src}")
+        return
+        # raise FileNotFoundError(f"Source file not found: {src}")
     
     if not os.path.isdir(dest_dir):
-        raise NotADirectoryError(f"Destination is not a directory: {dest_dir}")
+        return
+        # raise NotADirectoryError(f"Destination is not a directory: {dest_dir}")
     
     # Get the original file name
     file_name = os.path.basename(src)
@@ -162,7 +164,8 @@ def moveFileToDirectory(
         shutil.move(src, dest)
         return dest
     except PermissionError:
-        raise PermissionError(f"Permission denied when moving {src} to {dest}")
+        return
+        # raise PermissionError(f"Permission denied when moving {src} to {dest}")
     
 
 def delEmptyAll(path):
