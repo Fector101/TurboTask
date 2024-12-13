@@ -33,7 +33,7 @@ npm install -g turbotask
 
 ## 📦 Installation
 
-### NPM (Recommended)
+### NPM (Recommended) [Stable]
 
 ```bash
 npm install -g turbotask

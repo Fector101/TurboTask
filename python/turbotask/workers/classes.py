@@ -168,7 +168,7 @@ class GroupFormat:
             return
 
         user_input = input('Enter "y" to Proceed or "n" to Cancel: ').lower()
-        print("Try not to move any file manualy during this Operation...")
+        print("Try not to move any file manualy during this Operation Processing...")
         if user_input != 'y':
             print("Operation cancelled GoodBye!!!")
             return
