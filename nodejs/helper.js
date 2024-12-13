@@ -162,7 +162,7 @@ function deleteEmptyFolders(dirPath) {
 				// If it's a directory, recursively call deleteEmptyFolders
 				fs.stat(filePath, (err, stats) => {
 					if (err) {
-						console.error('Error checking file stats:', err);
+						// console.error('Error checking file stats:', err);
 						return;
 					}
 	
