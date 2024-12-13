@@ -8,6 +8,7 @@ myenv
 venv
 __pycache__
 TurboTask.egg-info
+turbotask.egg-info
 .vscode
 node_modules
 y.txt

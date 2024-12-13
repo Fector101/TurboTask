@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="turbotask",
-    version="0.2.2",
+    version="0.2.31",
     packages=find_packages(),
     install_requires=['colorama'],
     author='Fabian',

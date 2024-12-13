@@ -5,7 +5,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-Support-orange.svg)](https://buymeacoffee.com/fector101)
 
-> A powerful command-line toolkit for efficient file processing, specializing in CSS optimization and more.
+> A versatile Node.js toolkit designed to simplify file processing tasks, with a focus on efficiency and ease of use. 
+Currently supports File Grouping and CSS minification with plans for expanded functionality including media analysis, and more.
 
 ## 🚀 Features
 

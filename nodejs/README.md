@@ -206,3 +206,5 @@ MIT © Fabian Joseph
 
 - Fabian - <fector101@yahoo.com>
 - GitHub: <https://github.com/Fector101/TurboTask>
+
+### Found this project helpful? Give it a ⭐️ on GitHub!
