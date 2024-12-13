@@ -60,7 +60,7 @@ npm install -g .
 turbotask group [optional_main_path]
 ```
 
-The 'group' argument:
+The argument:
 
 1. [optional_main_path] The main Folder the code will start the scan from (default is './' the folder the code is being ran from).
 
