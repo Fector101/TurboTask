@@ -202,7 +202,7 @@ class GroupFormat {
                 }
                 else if(stats_) {
                     const folder_name = this.createGroupFolder(each)
-                    // console.log(current_path)
+                    // console.log(current_path,'-->',folder_name)
                     this.moveFile(current_path,folder_name)
                     
                 }
@@ -293,9 +293,13 @@ class GroupFormat {
             const current_folder_name=path.dirname(current_path)
             // (current_folder_name,extension_name)
             // (not__user_script_path  ,'&&',  !current_folder_name.endsWith(extension_name))
-            if(not__user_script_path  &&  !current_folder_name.includes(`group ${extension_name}`.trim())){
+            // if(not__user_script_path  &&  current_folder_name.includes(`group ${extension_name}`.trim())){
+            // console.log(path.basename(current_folder_name) , '--->',`group ${extension_name}`.trim())
+            if(not__user_script_path  &&  path.basename(current_folder_name) !== `group ${extension_name}`.trim()){
                 moveFileToDirectory(current_path, folder_name);
                 this.number_of_moved_files++
+                this.task_progress.updateFileMoveCount(this.number_of_moved_files)
+
             }
 
         }
