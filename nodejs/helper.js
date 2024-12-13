@@ -166,7 +166,7 @@ function deleteEmptyFolders(dirPath) {
 	try{
 		fs.readdir(dirPath, (err, files) => {
 			if (err) {
-				console.error('Error reading directory:', err);
+				// console.error('Error reading directory:', err);
 				return;
 			}
 	
