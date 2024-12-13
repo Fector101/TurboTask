@@ -81,7 +81,7 @@ def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_m
             new_file_name = f"{basename} ({counter}){extname}"
             file_path = os.path.join(folder_path, new_file_name)
             counter += 1
-        
+        good_msg=f"Successfully Created a File without WhiteSpace in {Colors.green_text(file_path)}"
         if folder_path:
             create_directory(folder_path)
         with open(file_path,'w')as file:

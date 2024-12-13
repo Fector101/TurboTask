@@ -86,6 +86,7 @@ function writeFile(content, filePath, goodMsg = "<Dev> - Default Success Msg", e
 		filePath = path.join(destDir, newFileName)
 		counter++
 	}
+	goodMsg=`Successfully Created a File without WhiteSpace in ${greenText(filePath)}`
 
 	try {
 		const folderPath = path.dirname(filePath);
@@ -210,7 +211,7 @@ class Progress {
 		this.range = 0
 		this.progress_value = 0
 		this.progress = new cliProgress.SingleBar({
-			format: 'Grouping Formats |' + colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Folders Scanned || errors: {errors}',
+			format: 'Grouping Formats |' + colors.cyan('{bar}') + '| {percentage}% || {value}/{total} Folders Scanned || {files_moved} Files Moved || errors: {errors}',
 			barCompleteChar: '\u2588',
 			barIncompleteChar: '\u2591',
 			hideCursor: true
@@ -218,7 +219,7 @@ class Progress {
 	}
 	start(range) {
 		this.range = range
-		this.progress.start(range, 0, { errors: "0" })
+		this.progress.start(range, 0, { errors: "0",files_moved: "0" })
 	}
 	updateTotal(range) {
 		this.range = this.range + range
@@ -234,6 +235,10 @@ class Progress {
 	}
 	updateErrorCount(errors_no) {
 		this.progress.update(this.progress_value, { errors: errors_no });
+	}
+	
+	updateFileMoveCount(files_moved_no) {
+		this.progress.update(this.progress_value, { files_moved: files_moved_no });
 	}
 	// stop the bar
 }
