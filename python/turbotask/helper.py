@@ -68,6 +68,20 @@ def readFile(input_css_file_path):
 def writeFile(content,file_path,good_msg=f"<Dev> - Default Success Msg ",error_msg="<Dev> - Default Error Msg"):
     try:
         folder_path=os.path.dirname(file_path)
+        file_name = os.path.basename(file_path)
+        # Handle existing files by adding a counter
+        counter = 1
+        while os.path.exists(file_path):
+            # Split the filename and extension
+            extension_and_filename=os.path.splitext(file_name)
+            extname = extension_and_filename[1]
+            basename = extension_and_filename[0]
+            
+            # Create a new filename with a counter
+            new_file_name = f"{basename} ({counter}){extname}"
+            file_path = os.path.join(folder_path, new_file_name)
+            counter += 1
+        
         if folder_path:
             create_directory(folder_path)
         with open(file_path,'w')as file:

@@ -73,6 +73,20 @@ function readFile(inputCssFilePath) {
  * @param {string} [errorMsg='<Dev> - Default Error Msg'] - Error message
  */
 function writeFile(content, filePath, goodMsg = "<Dev> - Default Success Msg", errorMsg = "<Dev> - Default Error Msg") {
+	
+	const fileName = path.basename(filePath)
+	let destDir = path.dirname(filePath)
+	
+	// Check if the file already exists in the destination directory
+	let counter = 1
+	while (fs.existsSync(filePath)) {
+		const extname = path.extname(fileName) // gets extension name
+		const basename = path.basename(fileName, extname) // get actual file name
+		const newFileName = `${basename} (${counter})${extname}`
+		filePath = path.join(destDir, newFileName)
+		counter++
+	}
+
 	try {
 		const folderPath = path.dirname(filePath);
 		if (folderPath) {
