@@ -29,7 +29,7 @@
 ### Via pip (Recommended)
 
 ```bash
-pip install TurboTask
+pip install turbotask
 ```
 
 ### From Source
@@ -51,10 +51,12 @@ pip install .
 
 ## 🔨 Usage Guide
 
+### Note: In terminal use PascalCase it's `TurboTask --help` not `turbotask --help`
+
 ### File Grouping
 
 ```bash
-turbotask group [optional_main_path]
+TurboTask group [optional_main_path]
 ```
 
 The argument:
