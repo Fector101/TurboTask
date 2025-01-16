@@ -59,7 +59,7 @@ Both implementations offer:
 | Directory Processing  | ✅             | ✅              |
 | Custom Output Paths   | ✅             | ✅              |
 | File Validation       | ✅             | ✅              |
-
+| Android utilities     | ✅             | ❌
 ## 🎯 Quick Start
 
 Choose your preferred implementation:
